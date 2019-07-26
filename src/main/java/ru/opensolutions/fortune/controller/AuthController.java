@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/security")
 @RequiredArgsConstructor
 @Api(tags = "Ресурс для авторизации")
-@CrossOrigin(origins = "http://localhost:50")
 public class AuthController extends AbstractLogger {
 
     private final AuthenticationService authenticationService;

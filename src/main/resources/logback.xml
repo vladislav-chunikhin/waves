@@ -1,0 +1,45 @@
+<?xmldata version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/fortune.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/fortune_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>5MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%-27(%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level backend [%thread]) %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level backend [%thread] %logger{36} - %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <!-- Логгеры -->
+    <root level="info" additivity="false">
+        <appender-ref ref="file"/>
+    </root>
+    <logger name="ru.opensolutions" level="debug" additivity="false">
+        <appender-ref ref="file"/>
+    </logger>
+    <logger name="org.springframework" level="info" additivity="false">
+        <appender-ref ref="file"/>
+    </logger>
+
+    <logger name="org.springframework" level="info" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
+    <logger name="ru.opensolutions" level="debug" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
+    <root level="info">
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

@@ -1,0 +1,1 @@
+web: java -jar target/fortune-0.0.1-develop.jar

@@ -6,7 +6,8 @@ import java.util.Arrays;
  * Тип вызываемой функции. */
 public enum FunctionType {
     CHECK_SIGN("checkSign"),
-    WITHDRAW("withdraw");
+    WITHDRAW("withdraw"),
+    BET("bet");
 
     private String name;
 

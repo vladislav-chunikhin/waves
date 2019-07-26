@@ -1,10 +1,10 @@
 package ru.opensolutions.fortune.service;
 
-import com.wavesplatform.wavesj.ByteString;
 import com.wavesplatform.wavesj.PrivateKeyAccount;
 import com.wavesplatform.wavesj.transactions.InvokeScriptTransaction;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
+import ru.opensolutions.fortune.model.TransactionParamsDto;
 
 import static com.wavesplatform.wavesj.Asset.toWavelets;
 
@@ -13,33 +13,40 @@ import static com.wavesplatform.wavesj.Asset.toWavelets;
 @Service
 class ParamFillingTransactionService {
 
-    private static final Long PAYMENT_AMT = toWavelets(0.01);
+    private static final Long PAYMENT_AMT = toWavelets(0.001);
 
     void fillTxForCheckSign(
             @NonNull final InvokeScriptTransaction tx,
-            @NonNull final String testNumber,
-            @NonNull final String txId,
-            @NonNull final ByteString signatureAsByteString,
-            @NonNull final ByteString publicKeyAsByteString,
+            @NonNull final TransactionParamsDto dto,
             @NonNull final PrivateKeyAccount account) {
         tx
-                .withArg(testNumber)
-                .withArg(txId)
-                .withArg(signatureAsByteString)
-                .withArg(publicKeyAsByteString)
+                .withArg(dto.getTestNumber())
+                .withArg(dto.getTxId())
+                .withArg(dto.getSignatureAsByteString())
+                .withArg(dto.getPublicKeyAsByteString())
                 .withPayment(PAYMENT_AMT, null)
                 .sign(account);
     }
 
     void fillTxForWithdraw(
            @NonNull final InvokeScriptTransaction tx,
-           @NonNull final String txId,
-           @NonNull final ByteString signatureAsByteString,
+           @NonNull final TransactionParamsDto dto,
            @NonNull final PrivateKeyAccount account
     ) {
         tx
-                .withArg(txId)
-                .withArg(signatureAsByteString)
+                .withArg(dto.getTxId())
+                .withArg(dto.getSignatureAsByteString())
+                .sign(account);
+    }
+
+    void fillTxForBet(
+            @NonNull final InvokeScriptTransaction tx,
+            @NonNull final TransactionParamsDto dto,
+            @NonNull final PrivateKeyAccount account
+    ) {
+        tx
+                .withArg(dto.getBetValue())
+                .withPayment(PAYMENT_AMT, null)
                 .sign(account);
     }
 }

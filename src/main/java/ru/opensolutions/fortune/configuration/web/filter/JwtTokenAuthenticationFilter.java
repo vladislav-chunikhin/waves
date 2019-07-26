@@ -7,7 +7,7 @@ import ru.opensolutions.fortune.exception.JwtBadSignatureException;
 import ru.opensolutions.fortune.exception.JwtExpirationException;
 import ru.opensolutions.fortune.exception.MalformedJwtException;
 import ru.opensolutions.fortune.configuration.SecurityParamsConfig;
-import ru.opensolutions.fortune.model.JwtUser;
+import ru.opensolutions.fortune.model.auth.JwtUser;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

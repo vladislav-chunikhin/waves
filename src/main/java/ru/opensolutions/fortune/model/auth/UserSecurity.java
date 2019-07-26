@@ -1,4 +1,4 @@
-package ru.opensolutions.fortune.model;
+package ru.opensolutions.fortune.model.auth;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

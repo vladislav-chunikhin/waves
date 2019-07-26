@@ -9,6 +9,7 @@ import ru.opensolutions.fortune.json.request.TransactionIdRequest;
 import ru.opensolutions.fortune.json.response.SignDataResponse;
 import ru.opensolutions.fortune.json.response.TransactionIdResponse;
 import ru.opensolutions.fortune.model.SecurityAndWavesParams;
+import ru.opensolutions.fortune.model.TransactionParamsDto;
 import ru.opensolutions.fortune.util.crypto.CryptographyComponent;
 import ru.opensolutions.fortune.util.enums.FunctionType;
 import com.wavesplatform.wavesj.*;
@@ -52,7 +53,7 @@ public class FortuneService extends AbstractWavesService {
         final String nodeUri = this.securityAndWavesParams.getWalletNodeUri();
         final String seed = this.securityAndWavesParams.getSeed();
         final FunctionType functionType = FunctionType.getEnum(function);
-        String dApp = this.dAppAddressService.setDAppValueByFunctionType(functionType);
+        String dApp = this.dAppAddressService.getDAppValueByFunctionType(functionType);
 
         log(
                 "NODE URI = {}" +
@@ -62,6 +63,7 @@ public class FortuneService extends AbstractWavesService {
 
         final String testNumber = request.getTestNumber();
         final String txId = request.getTxId();
+        final String betValue = request.getBetValue();
         final String signatureBase58 = this.cryptographyComponent.getSignatureAsString(txId, BASE58);
         final PublicKey publicKey = this.cryptographyComponent.getPublicKey();
 
@@ -85,17 +87,32 @@ public class FortuneService extends AbstractWavesService {
             case WITHDRAW:
                 this.paramFillingTransactionService.fillTxForWithdraw(
                         tx,
-                        txId,
-                        signatureAsByteString,
+                        TransactionParamsDto
+                                .builder()
+                                .txId(txId)
+                                .signatureAsByteString(signatureAsByteString)
+                                .build(),
                         account);
                 break;
             case CHECK_SIGN:
                 this.paramFillingTransactionService.fillTxForCheckSign(
                         tx,
-                        testNumber,
-                        txId,
-                        signatureAsByteString,
-                        publicKeyAsByteString,
+                        TransactionParamsDto
+                                .builder()
+                                .testNumber(testNumber)
+                                .txId(txId)
+                                .signatureAsByteString(signatureAsByteString)
+                                .publicKeyAsByteString(publicKeyAsByteString)
+                                .build(),
+                        account);
+                break;
+            case BET:
+                this.paramFillingTransactionService.fillTxForBet(
+                        tx,
+                        TransactionParamsDto
+                                .builder()
+                                .betValue(betValue)
+                                .build(),
                         account);
                 break;
             default:

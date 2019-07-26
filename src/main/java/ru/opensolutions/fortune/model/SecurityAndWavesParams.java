@@ -21,6 +21,10 @@ public class SecurityAndWavesParams {
     @Getter
     private String dAppWithdraw;
 
+    @Value("${waves.dApp.bet}")
+    @Getter
+    private String dAppBet;
+
     @Value("${waves.seed}")
     @Getter
     private String seed;

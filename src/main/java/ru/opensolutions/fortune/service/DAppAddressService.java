@@ -15,15 +15,17 @@ class DAppAddressService {
     private SecurityAndWavesParams securityAndWavesParams;
 
     /**
-     * Установка dApp адреса в зависимости от типа требуемой функции.
+     * Получение dApp адреса в зависимости от типа требуемой функции.
      * @param functionType тип функции.
      * @return dApp адрес. */
-    String setDAppValueByFunctionType(@NonNull final FunctionType functionType) {
+    String getDAppValueByFunctionType(@NonNull final FunctionType functionType) {
         switch (functionType) {
             case CHECK_SIGN:
                 return this.securityAndWavesParams.getDAppCheckSign();
             case WITHDRAW:
                 return this.securityAndWavesParams.getDAppWithdraw();
+            case BET:
+                return this.securityAndWavesParams.getDAppBet();
             default:
                 throw new IllegalArgumentException("Unexpected function type: "
                         .concat(functionType.getName()));

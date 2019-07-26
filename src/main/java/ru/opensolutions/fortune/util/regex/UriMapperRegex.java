@@ -7,5 +7,5 @@ public interface UriMapperRegex {
     /**
      * Используемые функции у смарт аккаунтов. */
     String FUNCTION =
-            "checkSign|withdraw";
+            "checkSign|withdraw|bet";
 }

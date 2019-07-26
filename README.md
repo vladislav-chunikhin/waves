@@ -23,3 +23,4 @@ Swagger документация для используемых методов 
 
 * http://localhost:8080/fortune/api/swagger-ui.html
 
+* https://fortune-develop.herokuapp.com/fortune/api/swagger-ui.html

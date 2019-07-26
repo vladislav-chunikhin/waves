@@ -7,16 +7,16 @@
 
 ## Полезные ресурсы
 
-#####Swagger документация для используемых методов waves :
+####Swagger документация для используемых методов waves :
 * https://testnode1.wavesnodes.com/api-docs/index.html#/
 
-#####Тестирование скриптов waves :
+####Тестирование скриптов waves :
 * https://ide.wavesplatform.com/
 
-#####Проводник waves :
+####Проводник waves :
 * https://wavesexplorer.com/testnet/nodes
 
-#####Генерация и валидация RSA подписи онлайн:
+####Генерация и валидация RSA подписи онлайн:
 * https://8gwifi.org/RSAFunctionality?rsasignverifyfunctions=rsasignverifyfunctions&keysize=512
 
 ## Ссылка на Swagger документацию в проекте

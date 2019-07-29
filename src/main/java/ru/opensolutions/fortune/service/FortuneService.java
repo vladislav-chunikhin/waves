@@ -3,7 +3,6 @@ package ru.opensolutions.fortune.service;
 import lombok.NonNull;
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
-import ru.opensolutions.fortune.common.AbstractWavesService;
 import ru.opensolutions.fortune.json.request.SendDataToNodeRequest;
 import ru.opensolutions.fortune.json.request.TransactionIdRequest;
 import ru.opensolutions.fortune.json.response.SignDataResponse;
@@ -17,21 +16,24 @@ import com.wavesplatform.wavesj.transactions.InvokeScriptTransaction;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import ru.opensolutions.fortune.util.log.AbstractLogger;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.PublicKey;
 import java.util.Collections;
 
+import static ru.opensolutions.fortune.model.constants.FortuneConstants.FEE;
+import static ru.opensolutions.fortune.model.constants.FortuneConstants.TIMESTAMP;
+import static ru.opensolutions.fortune.model.constants.FortuneConstants.SERVER_ERROR_CODE;
 import static ru.opensolutions.fortune.util.enums.SignatureType.BASE58;
 import static ru.opensolutions.fortune.util.enums.SignatureType.BASE64;
 
 /**
- * Сервис для работы с RSA подписью.
- */
+ * Сервис для работы с RSA подписью и функциями игры Fortune. */
 @Service
 @RequiredArgsConstructor
-public class FortuneService extends AbstractWavesService {
+public class FortuneService extends AbstractLogger {
 
     private final SecurityAndWavesParams securityAndWavesParams;
     private final CryptographyComponent cryptographyComponent;
@@ -53,7 +55,7 @@ public class FortuneService extends AbstractWavesService {
         final String nodeUri = this.securityAndWavesParams.getWalletNodeUri();
         final String seed = this.securityAndWavesParams.getSeed();
         final FunctionType functionType = FunctionType.getEnum(function);
-        String dApp = this.dAppAddressService.getDAppValueByFunctionType(functionType);
+        final String dApp = this.dAppAddressService.getDAppValueByFunctionType(functionType);
 
         log(
                 "NODE URI = {}" +

@@ -1,7 +1,7 @@
 package ru.opensolutions.fortune.service.spring.security;
 
 import lombok.NonNull;
-import ru.opensolutions.fortune.common.AbstractLogger;
+import ru.opensolutions.fortune.util.log.AbstractLogger;
 import ru.opensolutions.fortune.model.auth.UserSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

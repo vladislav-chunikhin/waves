@@ -1,16 +1,16 @@
 package ru.opensolutions.fortune.api;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
- * pojo для результата.
- */
-public class ResultResponse<T> {
+ * pojo для результата. */
+@AllArgsConstructor
+class ResultResponse<T> {
+
+    /**
+     * Данные. */
+    @Getter
     private final T data;
 
-    ResultResponse(final T data) {
-        this.data = data;
-    }
-
-    public T getData() {
-        return data;
-    }
 }

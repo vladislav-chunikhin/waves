@@ -24,7 +24,6 @@ public final class ServletResponseWrapperUtils {
         final WavesResponse wavesResponse = WavesAPI.negativeResponse(status, Collections.singletonList(errorMsg));
         final ObjectMapper objMapper = new ObjectMapper();
         final HttpServletResponseWrapper wrapper = new HttpServletResponseWrapper(response);
-        wrapper.setContentType("text/html; charset=UTF-8");
         wrapper.setStatus(status);
         wrapper.setContentType(APPLICATION_JSON_VALUE);
         wrapper.getWriter().println(objMapper.writeValueAsString(wavesResponse));

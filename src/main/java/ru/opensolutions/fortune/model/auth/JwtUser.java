@@ -6,10 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 
-import static java.util.Collections.EMPTY_LIST;
-
 /**
- * created by vlad on 21.07.19
+ * pojo объект для пользователя с параметрами авторизации.
  */
 public class JwtUser implements UserDetails {
     private String username;
@@ -17,10 +15,6 @@ public class JwtUser implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     private Date creationDate;
-
-    public JwtUser(String username, Date creationDate) {
-        this(username, creationDate, EMPTY_LIST);
-    }
 
     public JwtUser(String username, Date creationDate, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;

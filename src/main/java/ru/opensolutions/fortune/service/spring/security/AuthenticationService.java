@@ -3,7 +3,7 @@ package ru.opensolutions.fortune.service.spring.security;
 import com.nimbusds.jose.JOSEException;
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
-import ru.opensolutions.fortune.common.AbstractLogger;
+import ru.opensolutions.fortune.util.log.AbstractLogger;
 import ru.opensolutions.fortune.configuration.SecurityParamsConfig;
 import ru.opensolutions.fortune.json.request.AuthenticationRequest;
 import ru.opensolutions.fortune.json.response.AuthenticationResponse;

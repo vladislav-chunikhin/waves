@@ -8,10 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * Криптография для spring security пароля. */
 @Configuration
-public class EncoderConfig implements SecurityParamsConfig {
+public class EncoderConfig {
 
     @Bean
     public PasswordEncoder userPasswordEncoder() {
-        return new BCryptPasswordEncoder(ENCODER_STRENGTH);
+        return new BCryptPasswordEncoder(SecurityParamsConfig.ENCODER_STRENGTH);
     }
 }

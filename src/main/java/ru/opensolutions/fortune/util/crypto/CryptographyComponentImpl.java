@@ -5,7 +5,7 @@ import com.wavesplatform.wavesj.Base64;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.opensolutions.fortune.model.SecurityAndWavesParams;
-import ru.opensolutions.fortune.common.AbstractLogger;
+import ru.opensolutions.fortune.util.log.AbstractLogger;
 import lombok.SneakyThrows;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
@@ -87,19 +87,15 @@ public class CryptographyComponentImpl extends AbstractLogger implements Cryptog
     @Override
     public PublicKey getPublicKey() {
         final PublicKey publicKey;
-        final KeyFactory keyFactory = KeyFactory
-                .getInstance(
-                        this
-                                .securityAndWavesParams
-                                .getKeyFactoryAlgorithm()
+        final KeyFactory keyFactory = KeyFactory.getInstance(
+                this.securityAndWavesParams
+                        .getKeyFactoryAlgorithm()
                 );
         publicKey = keyFactory.generatePublic(
-                new X509EncodedKeySpec(
-                        getPemObjectFromFile(
-                                this
-                                        .securityAndWavesParams
-                                        .getPublicKeyPath())
-                                .getContent()
+                new X509EncodedKeySpec(getPemObjectFromFile(
+                        this.securityAndWavesParams
+                                        .getPublicKeyPath()
+                                ).getContent()
                 )
         );
         return publicKey;
@@ -112,19 +108,15 @@ public class CryptographyComponentImpl extends AbstractLogger implements Cryptog
     @Override
     public PrivateKey getPrivateKey() {
         final PrivateKey privateKey;
-        final KeyFactory keyFactory = KeyFactory
-                .getInstance(
-                        this.
-                                securityAndWavesParams.
+        final KeyFactory keyFactory = KeyFactory.getInstance(
+                this.securityAndWavesParams.
                                 getKeyFactoryAlgorithm()
                 );
         privateKey = keyFactory.generatePrivate(
-                new PKCS8EncodedKeySpec(
-                        getPemObjectFromFile(
-                                this
-                                        .securityAndWavesParams
-                                        .getPrivateKeyPath())
-                                .getContent()
+                new PKCS8EncodedKeySpec(getPemObjectFromFile(
+                          this.securityAndWavesParams
+                                        .getPrivateKeyPath()
+                                ).getContent()
                 )
         );
         return privateKey;

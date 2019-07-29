@@ -9,7 +9,7 @@ public interface SecurityParamsConfig {
     Integer ENCODER_STRENGTH = 11;
     String PREFIX_AUTH_HEADER = "Bearer ";
     String SECRET_FILE = "/secret.key";
-    String[] NONE_SECURITY = new String[]{
+    String[] NONE_SECURITY = new String[] {
             "/fortune/api/v2/api-docs",
             "/fortune/api/swagger-resources/**",
             "/fortune/api/swagger-ui.html/**",

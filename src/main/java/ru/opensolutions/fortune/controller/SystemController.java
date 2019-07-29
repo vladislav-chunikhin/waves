@@ -2,7 +2,7 @@ package ru.opensolutions.fortune.controller;
 
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
-import ru.opensolutions.fortune.common.AbstractLogger;
+import ru.opensolutions.fortune.util.log.AbstractLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;

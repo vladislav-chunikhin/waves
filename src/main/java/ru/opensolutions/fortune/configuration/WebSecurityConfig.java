@@ -25,7 +25,6 @@ import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import static org.springframework.http.HttpHeaders.*;
 import static org.springframework.http.HttpMethod.*;
 
 /**
@@ -33,7 +32,7 @@ import static org.springframework.http.HttpMethod.*;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements SecurityParamsConfig {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${auth.switch}")
     private String authSwitcher;
@@ -95,7 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements S
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        String secret = IOUtils.toString(this.getClass().getResourceAsStream(SECRET_FILE));
+        String secret = IOUtils.toString(this.getClass().getResourceAsStream(SecurityParamsConfig.SECRET_FILE));
 
         http
                 .csrf().disable()
@@ -115,8 +114,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements S
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.GET, NONE_SECURITY).permitAll()
-                .antMatchers(HttpMethod.POST, AUTH_URL).permitAll()
+                .antMatchers(HttpMethod.GET, SecurityParamsConfig.NONE_SECURITY).permitAll()
+                .antMatchers(HttpMethod.POST, SecurityParamsConfig.AUTH_URL).permitAll()
                 .anyRequest().authenticated();
 
     }

@@ -9,8 +9,7 @@ import java.util.Arrays;
 import static java.lang.String.format;
 
 /**
- * Настройка для валидации настроек приложения.
- */
+ * Настройка для валидации настроек приложения. */
 @Configuration
 public class ValidationConfig {
 
@@ -18,7 +17,7 @@ public class ValidationConfig {
     private String authSwitcher;
 
     @Bean
-    public void checkAppProperties(){
+    public void checkAppProperties() {
         if (!Arrays.asList("on", "off").contains(authSwitcher)) {
             throw new IllegalArgumentException(format(
                     "Параметр настройки auth.switch может принимать только значения on или off." +

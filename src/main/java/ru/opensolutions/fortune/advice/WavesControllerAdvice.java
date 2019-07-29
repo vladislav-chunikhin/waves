@@ -2,7 +2,7 @@ package ru.opensolutions.fortune.advice;
 
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
-import ru.opensolutions.fortune.common.AbstractLogger;
+import ru.opensolutions.fortune.util.log.AbstractLogger;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

@@ -33,7 +33,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 /**
  * Фильтр для всех http запросов. */
-public class JwtTokenAuthenticationFilter extends GenericFilterBean implements SecurityParamsConfig {
+public class JwtTokenAuthenticationFilter extends GenericFilterBean {
 
     private String secretKey;
     private String authSwitch;
@@ -55,7 +55,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean implements S
             return;
         }
 
-        List<String> urlPatterns = Collections.singletonList(AUTH_URL);
+        List<String> urlPatterns = Collections.singletonList(SecurityParamsConfig.AUTH_URL);
 
         if (urlPatterns.contains(request.getRequestURI())) {
             chain.doFilter(request, response);
@@ -63,7 +63,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean implements S
         }
 
         String header = request.getHeader(AUTHORIZATION);
-        if (Objects.isNull(header) || !header.startsWith(PREFIX_AUTH_HEADER)) {
+        if (Objects.isNull(header) || !header.startsWith(SecurityParamsConfig.PREFIX_AUTH_HEADER)) {
             chain.doFilter(request, response);
             return;
         }
@@ -83,7 +83,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean implements S
 
     private SignedJWT extractAndDecodeJwt(HttpServletRequest request) throws ParseException {
         String authHeader = request.getHeader(AUTHORIZATION);
-        String token = authHeader.substring(PREFIX_AUTH_HEADER.length());
+        String token = authHeader.substring(SecurityParamsConfig.PREFIX_AUTH_HEADER.length());
         return parse(token);
     }
 
@@ -95,9 +95,9 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean implements S
     @SneakyThrows
     private Authentication buildAuthentication(SignedJWT jwt, HttpServletRequest request) {
 
-        String username = getUsername(jwt);
-        Collection<? extends GrantedAuthority> authorities = getRoles(jwt);
-        Date creationDate = getIssueTime(jwt);
+        final String username = getUsername(jwt);
+        final Collection<? extends GrantedAuthority> authorities = getRoles(jwt);
+        final Date creationDate = getIssueTime(jwt);
         JwtUser userDetails = new JwtUser(username, creationDate, authorities);
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

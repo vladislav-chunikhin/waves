@@ -1,13 +1,13 @@
 package ru.opensolutions.fortune.json.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * created by vlad on 07.07.19
  */
-
 public class SignDataResponse extends TransactionIdResponse {
 
     @JsonProperty("signature_base_64")

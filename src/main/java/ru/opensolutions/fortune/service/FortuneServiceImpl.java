@@ -29,7 +29,6 @@ import java.util.Collections;
 import static ru.opensolutions.fortune.model.constants.FortuneConstants.FEE;
 import static ru.opensolutions.fortune.model.constants.FortuneConstants.TIMESTAMP;
 import static ru.opensolutions.fortune.model.constants.FortuneConstants.SERVER_ERROR_CODE;
-import static ru.opensolutions.fortune.util.JsonUtils.getPrettyJson;
 import static ru.opensolutions.fortune.util.enums.SignatureType.BASE58;
 import static ru.opensolutions.fortune.util.enums.SignatureType.BASE64;
 

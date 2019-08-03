@@ -1,12 +1,14 @@
-package ru.opensolutions.fortune.configuration;
+package ru.opensolutions.fortune.configuration.swagger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RestController;
+import ru.opensolutions.fortune.util.enums.AuthOptionType;
 import ru.opensolutions.fortune.util.marker.SwaggerMarker;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -31,21 +33,26 @@ import java.util.HashSet;
 @Configuration
 @ComponentScan(basePackages = "ru.opensolutions.fortune.controller")
 @EnableSwagger2
+@Lazy
 public class SwaggerConfig {
 
     private static final String TITLE = "Документация по используемым ресурсам на сервере для Fortune";
     private static final String GROUP_NAME = "Сервис по обработке идентификатора транзакции";
 
-    @Value("${common.project.version}")
+    @Value("${swagger.project.version}")
     private String version;
 
     @Value("${auth.switch}")
     private String authSwitcher;
 
+    /**
+     * Настройка UI сваггера.
+     * @return {@link Docket}.
+     */
     @Bean
     public Docket api() {
-        switch (authSwitcher) {
-            case "on":
+        switch (AuthOptionType.getEnum(authSwitcher)) {
+            case ON:
                 return new Docket(DocumentationType.SWAGGER_2)
                         .securitySchemes(Collections.singletonList(
                                 new ApiKey("Bearer", HttpHeaders.AUTHORIZATION, "header")
@@ -75,7 +82,7 @@ public class SwaggerConfig {
                         .consumes(
                                 new HashSet<>(Collections.singletonList(MediaType.APPLICATION_JSON_VALUE))
                         );
-            case "off":
+            case OFF:
                 return new Docket(DocumentationType.SWAGGER_2)
                         .select()
                         .apis(RequestHandlerSelectors.withClassAnnotation(SwaggerMarker.class))
@@ -90,7 +97,7 @@ public class SwaggerConfig {
                                 new HashSet<>(Collections.singletonList(MediaType.APPLICATION_JSON_VALUE))
                         );
             default:
-                throw new IllegalArgumentException("Unexpected value for authSwitcher");
+                throw new IllegalArgumentException("Unexpected value for authSwitcher: " + authSwitcher);
         }
     }
 

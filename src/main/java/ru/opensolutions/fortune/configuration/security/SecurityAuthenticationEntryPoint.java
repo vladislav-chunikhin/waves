@@ -1,4 +1,4 @@
-package ru.opensolutions.fortune.configuration.auth;
+package ru.opensolutions.fortune.configuration.security;
 
 import ru.opensolutions.fortune.util.ServletResponseWrapperUtils;
 import org.springframework.http.HttpStatus;

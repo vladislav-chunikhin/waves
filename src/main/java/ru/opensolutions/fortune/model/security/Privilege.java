@@ -1,15 +1,14 @@
-package ru.opensolutions.fortune.model.auth;
+package ru.opensolutions.fortune.model.security;
 
-import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
 
 /**
- * created by vlad on 21.07.19
- */
-@Data
+ * Привилегии пользователя. */
 public class Privilege implements GrantedAuthority {
 
+    @Getter
     private String name = "admin";
 
     @Override

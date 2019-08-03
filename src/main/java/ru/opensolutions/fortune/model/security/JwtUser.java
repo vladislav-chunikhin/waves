@@ -1,24 +1,21 @@
-package ru.opensolutions.fortune.model.auth;
+package ru.opensolutions.fortune.model.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * pojo объект для пользователя с параметрами авторизации.
  */
 public class JwtUser implements UserDetails {
-    private String username;
 
+    private String username;
     private Collection<? extends GrantedAuthority> authorities;
 
-    private Date creationDate;
 
-    public JwtUser(String username, Date creationDate, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(String username, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
-        this.creationDate = creationDate;
         this.authorities = authorities;
     }
 

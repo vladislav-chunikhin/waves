@@ -1,18 +1,17 @@
-package ru.opensolutions.fortune.service.spring.security;
+package ru.opensolutions.fortune.service.security;
 
 import lombok.NonNull;
+import ru.opensolutions.fortune.service.interfaces.AuthUserDetailsService;
 import ru.opensolutions.fortune.util.log.AbstractLogger;
-import ru.opensolutions.fortune.model.auth.UserSecurity;
+import ru.opensolutions.fortune.model.security.UserSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * Сервис для поулчения пользователя аутентификации.
- */
+ * Имплементация {@link AuthUserDetailsService}. */
 @Service
-public class AuthUserDetailsService extends AbstractLogger implements UserDetailsService {
+public class AuthUserDetailsServiceImpl extends AbstractLogger implements AuthUserDetailsService {
 
     private static UserSecurity user = new UserSecurity();
 

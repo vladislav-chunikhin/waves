@@ -3,13 +3,16 @@ package ru.opensolutions.fortune.configuration.validation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.opensolutions.fortune.util.enums.AuthOptionType;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
 /**
- * Настройка для валидации настроек приложения. */
+ * Валидация настроек приложения. */
 @Configuration
 public class ValidationConfig {
 
@@ -18,10 +21,15 @@ public class ValidationConfig {
 
     @Bean
     public void checkAppProperties() {
-        if (!Arrays.asList("on", "off").contains(authSwitcher)) {
+        final List<String> allOptions = Arrays
+                .stream(AuthOptionType.values())
+                .map(AuthOptionType::getName)
+                .collect(Collectors.toList());
+        final boolean isValidOption = allOptions.contains(authSwitcher);
+        if (!isValidOption) {
             throw new IllegalArgumentException(format(
-                    "Параметр настройки auth.switch может принимать только значения on или off." +
-                            "Текущее значение: %s", authSwitcher));
+                    "Параметр настройки auth.switch может принимать только значения: %s" +
+                            " Текущее значение: %s", allOptions, authSwitcher));
         }
     }
 }

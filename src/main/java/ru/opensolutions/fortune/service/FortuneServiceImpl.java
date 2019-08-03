@@ -8,7 +8,10 @@ import ru.opensolutions.fortune.json.request.TransactionIdRequest;
 import ru.opensolutions.fortune.json.response.SignDataResponse;
 import ru.opensolutions.fortune.json.response.TransactionIdResponse;
 import ru.opensolutions.fortune.model.SecurityAndWavesParams;
-import ru.opensolutions.fortune.model.TransactionParamsDto;
+import ru.opensolutions.fortune.model.dto.TransactionParamsDto;
+import ru.opensolutions.fortune.service.interfaces.DAppAddressService;
+import ru.opensolutions.fortune.service.interfaces.FortuneService;
+import ru.opensolutions.fortune.service.interfaces.ParamFillingTransactionService;
 import ru.opensolutions.fortune.util.crypto.CryptographyComponent;
 import ru.opensolutions.fortune.util.enums.FunctionType;
 import com.wavesplatform.wavesj.*;
@@ -26,25 +29,21 @@ import java.util.Collections;
 import static ru.opensolutions.fortune.model.constants.FortuneConstants.FEE;
 import static ru.opensolutions.fortune.model.constants.FortuneConstants.TIMESTAMP;
 import static ru.opensolutions.fortune.model.constants.FortuneConstants.SERVER_ERROR_CODE;
+import static ru.opensolutions.fortune.util.JsonUtils.getPrettyJson;
 import static ru.opensolutions.fortune.util.enums.SignatureType.BASE58;
 import static ru.opensolutions.fortune.util.enums.SignatureType.BASE64;
 
 /**
- * Сервис для работы с RSA подписью и функциями игры Fortune. */
+ * Имплементация {@link FortuneService}. */
 @Service
 @RequiredArgsConstructor
-public class FortuneService extends AbstractLogger {
+public class FortuneServiceImpl extends AbstractLogger implements FortuneService {
 
     private final SecurityAndWavesParams securityAndWavesParams;
     private final CryptographyComponent cryptographyComponent;
     private final ParamFillingTransactionService paramFillingTransactionService;
     private final DAppAddressService dAppAddressService;
 
-    /**
-     * Отправка подписи в теле транзакции в тестовую ноду.
-     * @param request Тело запроса с номером теста и txId.
-     * @return Объект, содержащий информацию об отправке в ноду подписи.
-     */
     @SneakyThrows(URISyntaxException.class)
     public WavesResponse sendData(
             @NonNull final SendDataToNodeRequest request,
@@ -137,11 +136,6 @@ public class FortuneService extends AbstractLogger {
         return WavesAPI.positiveResponse(new TransactionIdResponse(txIdResponse));
     }
 
-    /**
-     * Метод для подписи данных.
-     * @param request Тело запроса, которое содержит txId.
-     * @return Объект, содержащий в себе подпись в формате base64.
-     */
     public WavesResponse signData(@NonNull final TransactionIdRequest request) {
         final String methodName = "signData";
         logStartMethod(methodName);

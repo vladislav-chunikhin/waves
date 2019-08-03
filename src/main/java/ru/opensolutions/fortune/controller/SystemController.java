@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 /**
- * created by vlad on 18.07.19
+ * Ресурс для проверки сервера.
  */
 @RestController
 @RequestMapping("/system")

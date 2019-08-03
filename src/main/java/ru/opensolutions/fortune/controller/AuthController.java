@@ -1,24 +1,24 @@
 package ru.opensolutions.fortune.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.opensolutions.fortune.api.WavesResponse;
 import ru.opensolutions.fortune.util.log.AbstractLogger;
 import ru.opensolutions.fortune.json.request.AuthenticationRequest;
-import ru.opensolutions.fortune.service.spring.security.AuthenticationService;
+import ru.opensolutions.fortune.service.interfaces.AuthenticationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Ресурс для авторизации в модуль.
  */
 @RestController
 @RequestMapping("/security")
-@RequiredArgsConstructor
 @Api(tags = "Ресурс для авторизации")
 public class AuthController extends AbstractLogger {
 
-    private final AuthenticationService authenticationService;
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @PostMapping("/auth")
     @ApiOperation(value = "Авторизация. Получение accessToken'a")

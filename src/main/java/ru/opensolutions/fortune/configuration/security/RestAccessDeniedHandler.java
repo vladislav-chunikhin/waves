@@ -1,4 +1,4 @@
-package ru.opensolutions.fortune.configuration.auth;
+package ru.opensolutions.fortune.configuration.security;
 
 import ru.opensolutions.fortune.util.ServletResponseWrapperUtils;
 import org.springframework.http.HttpStatus;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Перехватчик ошибок прав доступа. */
 public class RestAccessDeniedHandler implements AccessDeniedHandler {
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) {
         ServletResponseWrapperUtils servletResponseWrapperUtils = new ServletResponseWrapperUtils();

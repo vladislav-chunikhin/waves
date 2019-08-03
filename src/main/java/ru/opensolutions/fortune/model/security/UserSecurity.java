@@ -1,4 +1,4 @@
-package ru.opensolutions.fortune.model.auth;
+package ru.opensolutions.fortune.model.security;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,8 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * created by vlad on 21.07.19
- */
+ * Имплементация {@link UserDetails} для компонентов Spring Security. */
 @Data
 public class UserSecurity implements UserDetails {
 

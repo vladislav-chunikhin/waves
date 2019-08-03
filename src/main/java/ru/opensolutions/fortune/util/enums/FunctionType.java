@@ -25,7 +25,7 @@ public enum FunctionType {
      * @return {@link FunctionType}. */
     public static FunctionType getEnum(String name) {
         return Arrays.stream(FunctionType.values())
-                .filter(en -> en.getName().equals(name))
+                .filter(it -> it.getName().equals(name))
                 .findFirst()
                 .orElseThrow(() ->
                         new IllegalArgumentException(

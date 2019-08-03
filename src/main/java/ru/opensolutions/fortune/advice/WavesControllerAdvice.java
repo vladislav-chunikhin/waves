@@ -18,6 +18,8 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @RestControllerAdvice
 public class WavesControllerAdvice extends AbstractLogger {
 
+    /**
+     * Перехватывает все ошибки связанные с валидацией. */
     @ExceptionHandler({
             IllegalArgumentException.class,
             ValidationException.class
@@ -29,6 +31,8 @@ public class WavesControllerAdvice extends AbstractLogger {
                 Collections.singletonList(ex.toString()));
     }
 
+    /**
+     * Общий перехватчик ошибок. */
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public WavesResponse handleException(final Throwable t) {

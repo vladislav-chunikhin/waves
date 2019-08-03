@@ -4,21 +4,18 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.opensolutions.fortune.model.SecurityAndWavesParams;
+import ru.opensolutions.fortune.service.interfaces.DAppAddressService;
 import ru.opensolutions.fortune.util.enums.FunctionType;
 
 /**
- * Сервис для работы с dApp адресами. */
+ * Имплементация {@link DAppAddressService}. */
 @Service
-class DAppAddressService {
+class DAppAddressServiceImpl implements DAppAddressService {
 
     @Autowired
     private SecurityAndWavesParams securityAndWavesParams;
 
-    /**
-     * Получение dApp адреса в зависимости от типа требуемой функции.
-     * @param functionType тип функции.
-     * @return dApp адрес. */
-    String getDAppValueByFunctionType(@NonNull final FunctionType functionType) {
+    public String getDAppValueByFunctionType(@NonNull final FunctionType functionType) {
         switch (functionType) {
             case CHECK_SIGN:
                 return this.securityAndWavesParams.getDAppCheckSign();

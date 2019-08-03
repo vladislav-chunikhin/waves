@@ -4,18 +4,21 @@ import com.wavesplatform.wavesj.PrivateKeyAccount;
 import com.wavesplatform.wavesj.transactions.InvokeScriptTransaction;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
-import ru.opensolutions.fortune.model.TransactionParamsDto;
+import ru.opensolutions.fortune.model.dto.TransactionParamsDto;
+import ru.opensolutions.fortune.service.interfaces.ParamFillingTransactionService;
 
 import static com.wavesplatform.wavesj.Asset.toWavelets;
 
 /**
- * Сервис для заполнения транзакции параметрами. */
+ * Имплементация {@link ParamFillingTransactionService}. */
 @Service
-class ParamFillingTransactionService {
+class ParamFillingTransactionServiceImpl implements ParamFillingTransactionService {
 
+    /**
+     * Оплата. */
     private static final Long PAYMENT_AMT = toWavelets(0.001);
 
-    void fillTxForCheckSign(
+    public void fillTxForCheckSign(
             @NonNull final InvokeScriptTransaction tx,
             @NonNull final TransactionParamsDto dto,
             @NonNull final PrivateKeyAccount account) {
@@ -28,10 +31,10 @@ class ParamFillingTransactionService {
                 .sign(account);
     }
 
-    void fillTxForWithdraw(
-           @NonNull final InvokeScriptTransaction tx,
-           @NonNull final TransactionParamsDto dto,
-           @NonNull final PrivateKeyAccount account
+    public void fillTxForWithdraw(
+            @NonNull final InvokeScriptTransaction tx,
+            @NonNull final TransactionParamsDto dto,
+            @NonNull final PrivateKeyAccount account
     ) {
         tx
                 .withArg(dto.getTxId())
@@ -39,7 +42,7 @@ class ParamFillingTransactionService {
                 .sign(account);
     }
 
-    void fillTxForBet(
+    public void fillTxForBet(
             @NonNull final InvokeScriptTransaction tx,
             @NonNull final TransactionParamsDto dto,
             @NonNull final PrivateKeyAccount account

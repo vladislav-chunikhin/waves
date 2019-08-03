@@ -10,7 +10,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.nimbusds.jwt.util.DateUtils;
 import lombok.NonNull;
-import ru.opensolutions.fortune.configuration.SecurityParamsConfig;
+import ru.opensolutions.fortune.configuration.security.SecurityParamsConfig;
 import ru.opensolutions.fortune.exception.JwtBadSignatureException;
 import ru.opensolutions.fortune.exception.JwtExpirationException;
 import org.apache.commons.lang.StringUtils;

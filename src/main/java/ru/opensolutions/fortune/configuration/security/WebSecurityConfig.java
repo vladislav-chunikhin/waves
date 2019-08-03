@@ -1,10 +1,9 @@
-package ru.opensolutions.fortune.configuration;
+package ru.opensolutions.fortune.configuration.security;
 
 import org.springframework.beans.factory.annotation.Value;
-import ru.opensolutions.fortune.configuration.auth.RestAccessDeniedHandler;
-import ru.opensolutions.fortune.configuration.auth.SecurityAuthenticationEntryPoint;
+import org.springframework.context.annotation.Lazy;
 import ru.opensolutions.fortune.configuration.web.filter.JwtTokenAuthenticationFilter;
-import ru.opensolutions.fortune.service.spring.security.AuthUserDetailsService;
+import ru.opensolutions.fortune.service.interfaces.AuthUserDetailsService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,16 +27,21 @@ import org.springframework.web.filter.CorsFilter;
 import static org.springframework.http.HttpMethod.*;
 
 /**
- * Настркоа для http security. */
+ * Настройка для http security. */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Lazy
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${auth.switch}")
     private String authSwitcher;
 
+    /**
+     * Сервис по получению авторизованного пользователя. */
     private AuthUserDetailsService authUserDetailsService;
+    /**
+     * Настройка для пароля. */
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -71,6 +75,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return mapper;
     }
 
+    /**
+     * @return дефолтный бин {@link AuthenticationManager}
+     * @throws Exception Любые исключения при настройки. */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -89,8 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Главная настройка по http фильтрации.
      * @param http http security Объект.
-     * @throws Exception Любые исключения при настройки.
-     */
+     * @throws Exception Любые исключения при настройки. */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -140,6 +146,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CorsFilter(source);
     }
 
+    /**
+     * @param secret секретный ключ в виде строки.
+     * @return настроенный jwt фильтр. */
     private JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter(String secret) {
         return new JwtTokenAuthenticationFilter(secret, authSwitcher);
     }

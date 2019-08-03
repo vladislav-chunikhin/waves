@@ -1,10 +1,11 @@
-package ru.opensolutions.fortune.service.spring.security;
+package ru.opensolutions.fortune.service.security;
 
 import com.nimbusds.jose.JOSEException;
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
+import ru.opensolutions.fortune.service.interfaces.AuthenticationService;
 import ru.opensolutions.fortune.util.log.AbstractLogger;
-import ru.opensolutions.fortune.configuration.SecurityParamsConfig;
+import ru.opensolutions.fortune.configuration.security.SecurityParamsConfig;
 import ru.opensolutions.fortune.json.request.AuthenticationRequest;
 import ru.opensolutions.fortune.json.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +24,10 @@ import java.io.IOException;
 import static ru.opensolutions.fortune.util.JwtUtils.generateHMACToken;
 
 /**
- * Сервис по авторизации пользователя. */
+ * Имплементация {@link AuthenticationService}. */
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService extends AbstractLogger {
+public class AuthenticationServiceImpl extends AbstractLogger implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 

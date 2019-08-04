@@ -1,6 +1,7 @@
 package ru.opensolutions.fortune.service.security;
 
 import com.nimbusds.jose.JOSEException;
+import lombok.NonNull;
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
 import ru.opensolutions.fortune.service.interfaces.AuthenticationService;
@@ -32,7 +33,7 @@ public class AuthenticationServiceImpl extends AbstractLogger implements Authent
     private final AuthenticationManager authenticationManager;
 
     @SneakyThrows({IOException.class, JOSEException.class})
-    public WavesResponse authenticationRequest(AuthenticationRequest authenticationRequest) {
+    public WavesResponse authenticationRequest(@NonNull final AuthenticationRequest authenticationRequest) {
         final String methodName = "authenticationRequest";
         logStartMethod(methodName);
         final String login = authenticationRequest.getLogin();
@@ -48,7 +49,11 @@ public class AuthenticationServiceImpl extends AbstractLogger implements Authent
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final String secret = IOUtils.toString(this.getClass().getResourceAsStream(SecurityParamsConfig.SECRET_FILE));
-        final String accessToken = generateHMACToken(login, authentication.getAuthorities(), secret, SecurityParamsConfig.EXPIRATION_IN_MINUTES_FOR_ACCESS_TOKEN);
+        final String accessToken = generateHMACToken(
+                login,
+                authentication.getAuthorities(),
+                secret,
+                SecurityParamsConfig.EXPIRATION_IN_MINUTES_FOR_ACCESS_TOKEN);
 
         return WavesAPI.positiveResponse(new AuthenticationResponse(SecurityParamsConfig.PREFIX_AUTH_HEADER.concat(" ").concat(accessToken)));
     }

@@ -1,7 +1,7 @@
 package ru.opensolutions.fortune.service;
 
 import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.opensolutions.fortune.model.SecurityAndWavesParams;
 import ru.opensolutions.fortune.service.interfaces.DAppAddressService;
@@ -10,10 +10,10 @@ import ru.opensolutions.fortune.util.enums.FunctionType;
 /**
  * Имплементация {@link DAppAddressService}. */
 @Service
+@RequiredArgsConstructor
 class DAppAddressServiceImpl implements DAppAddressService {
 
-    @Autowired
-    private SecurityAndWavesParams securityAndWavesParams;
+    private final SecurityAndWavesParams securityAndWavesParams;
 
     public String getDAppValueByFunctionType(@NonNull final FunctionType functionType) {
         switch (functionType) {

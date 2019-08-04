@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 /**
- * Ресурс для проверки сервера.
- */
+ * Ресурс для проверки сервера. */
 @RestController
 @RequestMapping("/system")
 @Api(tags ="Ресурс для проверки сервера")

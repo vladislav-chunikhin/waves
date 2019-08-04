@@ -6,8 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 /**
- * pojo объект для пользователя с параметрами авторизации.
- */
+ * pojo объект для пользователя с параметрами авторизации. */
 public class JwtUser implements UserDetails {
 
     private String username;

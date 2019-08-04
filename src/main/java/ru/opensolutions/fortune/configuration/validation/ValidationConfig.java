@@ -28,8 +28,8 @@ public class ValidationConfig {
         final boolean isValidOption = allOptions.contains(authSwitcher);
         if (!isValidOption) {
             throw new IllegalArgumentException(format(
-                    "Параметр настройки auth.switch может принимать только значения: %s" +
-                            " Текущее значение: %s", allOptions, authSwitcher));
+                    "Invalid value for auth.switch. The valid values: %s" +
+                            " The current value: %s", allOptions, authSwitcher));
         }
     }
 }

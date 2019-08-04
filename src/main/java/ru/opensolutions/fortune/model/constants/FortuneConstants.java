@@ -10,8 +10,10 @@ public class FortuneConstants {
     private FortuneConstants() {
         throw new RuntimeException();
     }
+
+    //todo скорее всего нужно переделать, уточнить у Виталия про коммисию. Она должна рассчитываться
     /**
-     * Налог за транзакцию. */
+     * Коммисия за транзакцию. */
     public static final long FEE = toWavelets(0.01);
     /**
      * Текущее время на сервере в формате timestamp.*/

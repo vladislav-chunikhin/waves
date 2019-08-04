@@ -143,11 +143,6 @@ public final class JwtUtils {
         return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
     }
 
-    public static Date getIssueTime(@NonNull final SignedJWT jwt) throws ParseException
-    {
-        return jwt.getJWTClaimsSet().getIssueTime();
-    }
-
     private static Date expirationDate(@NonNull final int expirationInMinutes)
     {
         return new Date(System.currentTimeMillis() + expirationInMinutes * 60 * 1000);

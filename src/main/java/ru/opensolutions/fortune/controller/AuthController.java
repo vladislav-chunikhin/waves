@@ -1,5 +1,7 @@
 package ru.opensolutions.fortune.controller;
 
+import io.swagger.annotations.ApiParam;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.opensolutions.fortune.api.WavesResponse;
@@ -10,8 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * Ресурс для авторизации в модуль.
- */
+ * Ресурс для авторизации в модуль. */
 @RestController
 @RequestMapping("/security")
 @Api(tags = "Ресурс для авторизации")
@@ -22,7 +23,10 @@ public class AuthController extends AbstractLogger {
 
     @PostMapping("/auth")
     @ApiOperation(value = "Авторизация. Получение accessToken'a")
-    public WavesResponse authenticationRequest(@RequestBody AuthenticationRequest authenticationRequest) {
+    public WavesResponse authenticationRequest(
+            @RequestBody
+            @ApiParam("Тело запроса")
+            @NonNull final AuthenticationRequest authenticationRequest) {
         return authenticationService.authenticationRequest(authenticationRequest);
     }
 }

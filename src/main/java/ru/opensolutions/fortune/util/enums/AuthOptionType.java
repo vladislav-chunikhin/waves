@@ -2,6 +2,7 @@ package ru.opensolutions.fortune.util.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.Arrays;
 
@@ -10,7 +11,12 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum AuthOptionType {
 
+    /**
+     * Включение авторизации. */
     ON("on"),
+
+    /**
+     * Выключение авторизации. */
     OFF("off");
 
     /**
@@ -22,7 +28,7 @@ public enum AuthOptionType {
      * Получение enum по наименованию.
      * @param name имя функциию.
      * @return {@link AuthOptionType}. */
-    public static AuthOptionType getEnum(String name) {
+    public static AuthOptionType getEnum(@NonNull final String name) {
         return Arrays.stream(AuthOptionType.values())
                 .filter(it -> it.getName().equals(name))
                 .findFirst()

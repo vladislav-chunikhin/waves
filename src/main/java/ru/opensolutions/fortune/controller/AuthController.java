@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.opensolutions.fortune.api.WavesResponse;
 import ru.opensolutions.fortune.util.log.AbstractLogger;
 import ru.opensolutions.fortune.json.request.AuthenticationRequest;
-import ru.opensolutions.fortune.service.interfaces.AuthenticationService;
+import ru.opensolutions.fortune.service.security.AuthenticationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 

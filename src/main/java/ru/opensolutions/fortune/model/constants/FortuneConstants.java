@@ -1,5 +1,7 @@
 package ru.opensolutions.fortune.model.constants;
 
+import com.wavesplatform.wavesj.Account;
+
 import static com.wavesplatform.wavesj.Asset.toWavelets;
 
 /**
@@ -21,4 +23,11 @@ public class FortuneConstants {
     /**
      * Общий код ошибок. */
     public static final int SERVER_ERROR_CODE = 500;
+
+    /**
+     * Тестовая сеть блокчейна. */
+    public static final byte TEST_CHAIN_ID = Account.TESTNET;
+    /**
+     * Главная сеть блокчейна. */
+    public static final byte MAIN_CHAIN_ID = Account.MAINNET;
 }

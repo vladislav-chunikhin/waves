@@ -1,12 +1,12 @@
-package ru.opensolutions.fortune.service.interfaces;
+package ru.opensolutions.fortune.service;
 
 import com.wavesplatform.wavesj.PrivateKeyAccount;
 import com.wavesplatform.wavesj.transactions.InvokeScriptTransaction;
 import ru.opensolutions.fortune.model.dto.TransactionParamsDto;
 
 /**
- * Сервис для заполнения транзакции параметрами. */
-public interface ParamFillingTransactionService {
+ * Компонент для заполнения транзакции параметрами. */
+public interface ParamFillingTransactionComponent {
 
     /**
      * @param tx объект транзакции.

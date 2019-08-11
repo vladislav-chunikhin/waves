@@ -5,14 +5,13 @@ import com.wavesplatform.wavesj.transactions.InvokeScriptTransaction;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import ru.opensolutions.fortune.model.dto.TransactionParamsDto;
-import ru.opensolutions.fortune.service.interfaces.ParamFillingTransactionService;
 
 import static com.wavesplatform.wavesj.Asset.toWavelets;
 
 /**
- * Имплементация {@link ParamFillingTransactionService}. */
+ * Имплементация {@link ParamFillingTransactionComponent}. */
 @Service
-class ParamFillingTransactionServiceImpl implements ParamFillingTransactionService {
+class ParamFillingTransactionComponentImpl implements ParamFillingTransactionComponent {
 
     /**
      * Оплата. */

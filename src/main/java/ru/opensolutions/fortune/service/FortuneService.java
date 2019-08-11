@@ -1,4 +1,4 @@
-package ru.opensolutions.fortune.service.interfaces;
+package ru.opensolutions.fortune.service;
 
 import ru.opensolutions.fortune.api.WavesResponse;
 import ru.opensolutions.fortune.json.request.SendDataToNodeRequest;

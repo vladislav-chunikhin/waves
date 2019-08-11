@@ -1,4 +1,4 @@
-package ru.opensolutions.fortune.util.crypto;
+package ru.opensolutions.fortune.service.crypto;
 
 import com.wavesplatform.wavesj.Base58;
 import com.wavesplatform.wavesj.Base64;

@@ -4,7 +4,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.opensolutions.fortune.api.WavesResponse;
-import ru.opensolutions.fortune.service.interfaces.FortuneService;
+import ru.opensolutions.fortune.service.FortuneService;
 import ru.opensolutions.fortune.util.log.AbstractLogger;
 import ru.opensolutions.fortune.json.request.SendDataToNodeRequest;
 import ru.opensolutions.fortune.json.request.TransactionIdRequest;

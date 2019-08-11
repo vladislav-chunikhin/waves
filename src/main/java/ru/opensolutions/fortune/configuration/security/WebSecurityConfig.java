@@ -3,7 +3,7 @@ package ru.opensolutions.fortune.configuration.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import ru.opensolutions.fortune.configuration.web.filter.JwtTokenAuthenticationFilter;
-import ru.opensolutions.fortune.service.interfaces.AuthUserDetailsService;
+import ru.opensolutions.fortune.service.security.AuthUserDetailsService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

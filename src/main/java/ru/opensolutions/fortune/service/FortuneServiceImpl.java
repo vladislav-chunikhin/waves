@@ -8,11 +8,9 @@ import ru.opensolutions.fortune.json.request.TransactionIdRequest;
 import ru.opensolutions.fortune.json.response.SignDataResponse;
 import ru.opensolutions.fortune.json.response.TransactionIdResponse;
 import ru.opensolutions.fortune.model.SecurityAndWavesParams;
+import ru.opensolutions.fortune.model.constants.FortuneConstants;
 import ru.opensolutions.fortune.model.dto.TransactionParamsDto;
-import ru.opensolutions.fortune.service.interfaces.DAppAddressService;
-import ru.opensolutions.fortune.service.interfaces.FortuneService;
-import ru.opensolutions.fortune.service.interfaces.ParamFillingTransactionService;
-import ru.opensolutions.fortune.util.crypto.CryptographyComponent;
+import ru.opensolutions.fortune.service.crypto.CryptographyComponent;
 import ru.opensolutions.fortune.util.enums.FunctionType;
 import com.wavesplatform.wavesj.*;
 import com.wavesplatform.wavesj.transactions.InvokeScriptTransaction;
@@ -40,8 +38,8 @@ public class FortuneServiceImpl extends AbstractLogger implements FortuneService
 
     private final SecurityAndWavesParams securityAndWavesParams;
     private final CryptographyComponent cryptographyComponent;
-    private final ParamFillingTransactionService paramFillingTransactionService;
-    private final DAppAddressService dAppAddressService;
+    private final ParamFillingTransactionComponent paramFillingTransactionComponent;
+    private final DAppAddressComponent dAppAddressComponent;
 
     @SneakyThrows(URISyntaxException.class)
     public WavesResponse sendData(
@@ -53,7 +51,7 @@ public class FortuneServiceImpl extends AbstractLogger implements FortuneService
         final String nodeUri = this.securityAndWavesParams.getWalletNodeUri();
         final String seed = this.securityAndWavesParams.getSeed();
         final FunctionType functionType = FunctionType.getEnum(function);
-        final String dApp = this.dAppAddressService.getDAppValueByFunctionType(functionType);
+        final String dApp = this.dAppAddressComponent.getDAppValueByFunctionType(functionType);
 
         log(
                 "NODE URI = {}" +
@@ -67,14 +65,14 @@ public class FortuneServiceImpl extends AbstractLogger implements FortuneService
         final String signatureBase58 = this.cryptographyComponent.getSignatureAsString(txId, BASE58);
         final PublicKey publicKey = this.cryptographyComponent.getPublicKey();
 
-        final Node node = new Node(nodeUri, TEST_CHAIN_ID);
-        final PrivateKeyAccount account = PrivateKeyAccount.fromSeed(seed, 0, TEST_CHAIN_ID);
+        final Node node = new Node(nodeUri, FortuneConstants.TEST_CHAIN_ID);
+        final PrivateKeyAccount account = PrivateKeyAccount.fromSeed(seed, 0, FortuneConstants.TEST_CHAIN_ID);
         final ByteString signatureAsByteString = new ByteString(signatureBase58);
         final ByteString publicKeyAsByteString = new ByteString(publicKey.getEncoded());
 
         final InvokeScriptTransaction tx = new InvokeScriptTransaction
                 (
-                        TEST_CHAIN_ID,
+                        FortuneConstants.TEST_CHAIN_ID,
                         account,
                         dApp,
                         function,
@@ -85,7 +83,7 @@ public class FortuneServiceImpl extends AbstractLogger implements FortuneService
 
         switch (functionType) {
             case WITHDRAW:
-                this.paramFillingTransactionService.fillTxForWithdraw(
+                this.paramFillingTransactionComponent.fillTxForWithdraw(
                         tx,
                         TransactionParamsDto
                                 .builder()
@@ -95,7 +93,7 @@ public class FortuneServiceImpl extends AbstractLogger implements FortuneService
                         account);
                 break;
             case CHECK_SIGN:
-                this.paramFillingTransactionService.fillTxForCheckSign(
+                this.paramFillingTransactionComponent.fillTxForCheckSign(
                         tx,
                         TransactionParamsDto
                                 .builder()
@@ -107,7 +105,7 @@ public class FortuneServiceImpl extends AbstractLogger implements FortuneService
                         account);
                 break;
             case BET:
-                this.paramFillingTransactionService.fillTxForBet(
+                this.paramFillingTransactionComponent.fillTxForBet(
                         tx,
                         TransactionParamsDto
                                 .builder()

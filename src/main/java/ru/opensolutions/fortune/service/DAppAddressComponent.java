@@ -1,10 +1,10 @@
-package ru.opensolutions.fortune.service.interfaces;
+package ru.opensolutions.fortune.service;
 
 import ru.opensolutions.fortune.util.enums.FunctionType;
 
 /**
- * Сервис для работы с dApp адресами. */
-public interface DAppAddressService {
+ * Комопнент для работы с dApp адресами. */
+public interface DAppAddressComponent {
 
     /**
      * Получение dApp адреса в зависимости от типа требуемой функции.

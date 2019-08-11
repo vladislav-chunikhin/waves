@@ -1,4 +1,4 @@
-package ru.opensolutions.fortune.util.crypto;
+package ru.opensolutions.fortune.service.crypto;
 
 import lombok.NonNull;
 import org.bouncycastle.util.io.pem.PemObject;

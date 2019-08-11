@@ -4,7 +4,6 @@ import com.nimbusds.jose.JOSEException;
 import lombok.NonNull;
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
-import ru.opensolutions.fortune.service.interfaces.AuthenticationService;
 import ru.opensolutions.fortune.util.log.AbstractLogger;
 import ru.opensolutions.fortune.configuration.security.SecurityParamsConfig;
 import ru.opensolutions.fortune.json.request.AuthenticationRequest;

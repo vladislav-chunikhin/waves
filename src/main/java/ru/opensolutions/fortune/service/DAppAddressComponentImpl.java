@@ -4,14 +4,13 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.opensolutions.fortune.model.SecurityAndWavesParams;
-import ru.opensolutions.fortune.service.interfaces.DAppAddressService;
 import ru.opensolutions.fortune.util.enums.FunctionType;
 
 /**
- * Имплементация {@link DAppAddressService}. */
+ * Имплементация {@link DAppAddressComponent}. */
 @Service
 @RequiredArgsConstructor
-class DAppAddressServiceImpl implements DAppAddressService {
+class DAppAddressComponentImpl implements DAppAddressComponent {
 
     private final SecurityAndWavesParams securityAndWavesParams;
 

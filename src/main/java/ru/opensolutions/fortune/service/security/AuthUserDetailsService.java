@@ -1,4 +1,4 @@
-package ru.opensolutions.fortune.service.interfaces;
+package ru.opensolutions.fortune.service.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

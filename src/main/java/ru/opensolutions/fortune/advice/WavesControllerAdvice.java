@@ -1,5 +1,6 @@
 package ru.opensolutions.fortune.advice;
 
+import lombok.NonNull;
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
 import ru.opensolutions.fortune.util.log.AbstractLogger;
@@ -25,7 +26,7 @@ public class WavesControllerAdvice extends AbstractLogger {
             ValidationException.class
     })
     @ResponseStatus(BAD_REQUEST)
-    public WavesResponse handleValidationException (final RuntimeException ex) {
+    public WavesResponse handleValidationException (@NonNull final RuntimeException ex) {
         error("handleValidationException = {}", ex.toString());
         return WavesAPI.negativeResponse(BAD_REQUEST.value(),
                 Collections.singletonList(ex.toString()));
@@ -35,7 +36,7 @@ public class WavesControllerAdvice extends AbstractLogger {
      * Общий перехватчик ошибок. */
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    public WavesResponse handleException(final Throwable t) {
+    public WavesResponse handleException(@NonNull final Throwable t) {
         error("handleException = {}", t.toString());
         return WavesAPI.negativeResponse(INTERNAL_SERVER_ERROR.value(),
                 Collections.singletonList(t.toString()));

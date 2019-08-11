@@ -17,7 +17,7 @@ import com.wavesplatform.wavesj.transactions.InvokeScriptTransaction;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
-import ru.opensolutions.fortune.util.log.AbstractLogger;
+import ru.opensolutions.fortune.util.log.AbstractTransactionLogger;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -34,7 +34,7 @@ import static ru.opensolutions.fortune.util.enums.SignatureType.BASE64;
  * Имплементация {@link FortuneService}. */
 @Service
 @RequiredArgsConstructor
-public class FortuneServiceImpl extends AbstractLogger implements FortuneService {
+public class FortuneServiceImpl extends AbstractTransactionLogger implements FortuneService {
 
     private final SecurityAndWavesParams securityAndWavesParams;
     private final CryptographyComponent cryptographyComponent;

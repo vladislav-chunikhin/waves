@@ -1,5 +1,6 @@
 package ru.opensolutions.fortune.configuration.security;
 
+import lombok.NonNull;
 import ru.opensolutions.fortune.util.ServletResponseWrapperUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -13,8 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 public class RestAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) {
-        ServletResponseWrapperUtils servletResponseWrapperUtils = new ServletResponseWrapperUtils();
+    public void handle(
+            @NonNull final HttpServletRequest request,
+            @NonNull final HttpServletResponse response,
+            @NonNull final AccessDeniedException e)
+    {
+        final ServletResponseWrapperUtils servletResponseWrapperUtils = new ServletResponseWrapperUtils();
         servletResponseWrapperUtils.setServletResponseWrapper(
                 response,
                 "Доступ запрещен.",

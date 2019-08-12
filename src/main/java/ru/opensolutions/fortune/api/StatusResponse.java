@@ -3,8 +3,6 @@ package ru.opensolutions.fortune.api;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
-
 /**
  *  pojo для http статуса и сообщения. */
 @AllArgsConstructor
@@ -18,6 +16,6 @@ class StatusResponse {
     /**
      * Сообщение. */
     @Getter
-    private final List<String> message;
+    private final String message;
 
 }

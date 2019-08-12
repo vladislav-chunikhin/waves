@@ -21,7 +21,7 @@ public final class ServletResponseWrapperUtils {
             @NonNull final HttpServletResponse response,
             @NonNull final String errorMsg,
             @NonNull final int status) {
-        final WavesResponse wavesResponse = WavesAPI.negativeResponse(status, Collections.singletonList(errorMsg));
+        final WavesResponse wavesResponse = WavesAPI.negativeResponse(status, errorMsg);
         final ObjectMapper objMapper = new ObjectMapper();
         final HttpServletResponseWrapper wrapper = new HttpServletResponseWrapper(response);
         wrapper.setStatus(status);

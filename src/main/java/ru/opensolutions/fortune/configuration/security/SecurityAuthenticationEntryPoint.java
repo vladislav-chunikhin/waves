@@ -1,5 +1,6 @@
 package ru.opensolutions.fortune.configuration.security;
 
+import lombok.NonNull;
 import ru.opensolutions.fortune.util.ServletResponseWrapperUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -12,9 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Перехватчик ошибок аутентификации. */
 public class SecurityAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
-        ServletResponseWrapperUtils servletResponseWrapperUtils = new ServletResponseWrapperUtils();
+    public void commence(
+            @NonNull final HttpServletRequest request,
+            @NonNull final HttpServletResponse response,
+            @NonNull final AuthenticationException authException)
+    {
+        final ServletResponseWrapperUtils servletResponseWrapperUtils = new ServletResponseWrapperUtils();
         if (authException instanceof InsufficientAuthenticationException){
             servletResponseWrapperUtils.setServletResponseWrapper(
                     response,

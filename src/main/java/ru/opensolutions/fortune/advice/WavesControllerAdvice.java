@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ValidationException;
-import java.util.Collections;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -27,9 +26,8 @@ public class WavesControllerAdvice extends AbstractLogger {
     })
     @ResponseStatus(BAD_REQUEST)
     public WavesResponse handleValidationException (@NonNull final RuntimeException ex) {
-        error("handleValidationException = {}", ex.toString());
-        return WavesAPI.negativeResponse(BAD_REQUEST.value(),
-                Collections.singletonList(ex.toString()));
+        this.error("handleValidationException = {}", ex.toString());
+        return WavesAPI.negativeResponse(BAD_REQUEST.value(), ex.toString());
     }
 
     /**
@@ -37,8 +35,7 @@ public class WavesControllerAdvice extends AbstractLogger {
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public WavesResponse handleException(@NonNull final Throwable t) {
-        error("handleException = {}", t.toString());
-        return WavesAPI.negativeResponse(INTERNAL_SERVER_ERROR.value(),
-                Collections.singletonList(t.toString()));
+        this.error("handleException = {}", t.toString());
+        return WavesAPI.negativeResponse(INTERNAL_SERVER_ERROR.value(), t.toString());
     }
 }

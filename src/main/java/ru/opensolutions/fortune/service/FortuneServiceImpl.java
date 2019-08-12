@@ -46,14 +46,14 @@ public class FortuneServiceImpl extends AbstractTransactionLogger implements For
             @NonNull final SendDataToNodeRequest request,
             @NonNull final String function) {
         final String methodName = "sendData";
-        logStartMethod(methodName);
+        this.logStartMethod(methodName);
 
         final String nodeUri = this.securityAndWavesParams.getWalletNodeUri();
         final String seed = this.securityAndWavesParams.getSeed();
         final FunctionType functionType = FunctionType.getEnum(function);
         final String dApp = this.dAppAddressComponent.getDAppValueByFunctionType(functionType);
 
-        log(
+        this.log(
                 "NODE URI = {}" +
                         "\nDAPP ADDRESS = {}" +
                         "\nSEED = {}"
@@ -118,24 +118,24 @@ public class FortuneServiceImpl extends AbstractTransactionLogger implements For
                         .concat(functionType.getName()));
         }
 
-        logTxAsPrettyJson(tx);
+        this.logTxAsPrettyJson(tx);
         final String txIdResponse;
 
         try {
             txIdResponse = node.send(tx);
         } catch (IOException ex) {
-            error(ex.toString());
-            return WavesAPI.negativeResponse(SERVER_ERROR_CODE, Collections.singletonList(ex.toString()));
+            this.error(ex.toString());
+            return WavesAPI.negativeResponse(SERVER_ERROR_CODE, ex.toString());
         }
 
-        log("txId = {}", txIdResponse);
-        logEndMethod(methodName);
+        this.log("txId = {}", txIdResponse);
+        this.logEndMethod(methodName);
         return WavesAPI.positiveResponse(new TransactionIdResponse(txIdResponse));
     }
 
     public WavesResponse signData(@NonNull final TransactionIdRequest request) {
         final String methodName = "signData";
-        logStartMethod(methodName);
+        this.logStartMethod(methodName);
         final String txId = request.getTxId();
 
         final PublicKey publicKey = this.cryptographyComponent.getPublicKey();
@@ -147,7 +147,7 @@ public class FortuneServiceImpl extends AbstractTransactionLogger implements For
                 this.cryptographyComponent.getSignatureAsString(request.getTxId(), BASE64),
                 publicKeyStr
         );
-        logEndMethod(methodName);
+        this.logEndMethod(methodName);
         return WavesAPI.positiveResponse(response);
     }
 }

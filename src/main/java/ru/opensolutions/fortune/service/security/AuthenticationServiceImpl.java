@@ -34,7 +34,7 @@ public class AuthenticationServiceImpl extends AbstractLogger implements Authent
     @SneakyThrows({IOException.class, JOSEException.class})
     public WavesResponse authenticationRequest(@NonNull final AuthenticationRequest authenticationRequest) {
         final String methodName = "authenticationRequest";
-        logStartMethod(methodName);
+        this.logStartMethod(methodName);
         final String login = authenticationRequest.getLogin();
         final String password = authenticationRequest.getPassword();
 

@@ -38,7 +38,7 @@ public class FortuneController extends AbstractLogger {
             @ApiParam(value = "Тип функции.\nСписок используемых функций: " + UriMapperRegex.FUNCTION)
             @NonNull final String function
     ) {
-        log("SEND DATA REQUEST = {}",
+        this.log("SEND DATA REQUEST = {}",
                 getJsonFromObject(req, true),
                 String.format("\nТип функции: %s", function));
         return this.fortuneService.sendData(req, function);
@@ -51,7 +51,7 @@ public class FortuneController extends AbstractLogger {
             @RequestBody @ApiParam(value = "Тело запроса")
             @NonNull final TransactionIdRequest req
     ) {
-        log("METHOD SIGN DATA REQUEST = {}", getJsonFromObject(req, true));
+        this.log("METHOD SIGN DATA REQUEST = {}", getJsonFromObject(req, true));
         return this.fortuneService.signData(req);
     }
 }

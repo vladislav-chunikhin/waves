@@ -38,28 +38,31 @@ public class CryptographyComponentImpl extends AbstractLogger implements Cryptog
 
     @Override
     public byte[] signDataByPrivateKey(final @NonNull String data) {
-        final PrivateKey privateKey = getPrivateKey();
+        final PrivateKey privateKey = this.getPrivateKey();
         byte[] result = new byte[0];
 
         try {
             final Signature sign = Signature.getInstance(
                     this.securityAndWavesParams.getSignatureAlgorithm());
             sign.initSign(privateKey);
-            byte[] bytes = data.getBytes(StandardCharsets.UTF_8);
+            final byte[] bytes = data.getBytes(StandardCharsets.UTF_8);
             sign.update(bytes);
             result = sign.sign();
         } catch (NoSuchAlgorithmException ex) {
-            error("Ошибка в выборе алгоритма подписи: {}", ex.toString());
+            this.error("Ошибка в выборе алгоритма подписи: {}", ex.toString());
         } catch (InvalidKeyException ex) {
-            error("Ошибка в инициализации подписи приватным ключом: {}", ex.toString());
+            this.error("Ошибка в инициализации подписи приватным ключом: {}", ex.toString());
         } catch (SignatureException ex) {
-            error("Ошибка в формировании подписи: {}", ex.toString());
+            this.error("Ошибка в формировании подписи: {}", ex.toString());
         }
         return result;
     }
 
     @Override
-    public void verifySignature(final @NonNull String data, @NonNull final byte[] signature) {
+    public void verifySignature(
+            @NonNull final String data,
+            @NonNull final byte[] signature)
+    {
         try {
             final Signature sign = Signature.getInstance(
                     this.securityAndWavesParams.getSignatureAlgorithm());
@@ -67,16 +70,16 @@ public class CryptographyComponentImpl extends AbstractLogger implements Cryptog
             sign.update(data.getBytes(StandardCharsets.UTF_8));
 
             if (sign.verify(signature)) {
-                log("Подпись для данных = {} прошла верификацию.", data);
+                this.log("Подпись для данных = {} прошла верификацию.", data);
             } else {
-                error("Подпись для данных = {} не прошла верификацию.", data);
+                this.error("Подпись для данных = {} не прошла верификацию.", data);
             }
         } catch (NoSuchAlgorithmException ex) {
-            error("Ошибка в выборе алгоритма подписи: {}", ex.toString());
+            this.error("Ошибка в выборе алгоритма подписи: {}", ex.toString());
         } catch (InvalidKeyException ex) {
-            error("Ошибка в инициализации публичного ключа: {}", ex.toString());
+            this.error("Ошибка в инициализации публичного ключа: {}", ex.toString());
         } catch (SignatureException ex) {
-            error("Ошибка в формировании подписи: {}", ex.toString());
+            this.error("Ошибка в формировании подписи: {}", ex.toString());
         }
     }
 
@@ -135,13 +138,16 @@ public class CryptographyComponentImpl extends AbstractLogger implements Cryptog
                 pemReader.close();
             }
         } catch (IOException ex) {
-            error("Ошибка при чтении файла {}", ex.toString());
+            this.error("Ошибка при чтении файла {}", ex.toString());
         }
         return pemObject;
     }
 
     @Override
-    public String getSignatureAsString(final @NonNull String data, final @NonNull SignatureType signatureType) {
+    public String getSignatureAsString(
+            final @NonNull String data,
+            final @NonNull SignatureType signatureType)
+    {
         final byte[] signatureBytes = this.signDataByPrivateKey(data);
         this.verifySignature(data, signatureBytes);
         switch (signatureType) {
@@ -149,13 +155,13 @@ public class CryptographyComponentImpl extends AbstractLogger implements Cryptog
                 final String signatureBase58 = Base58.encode(
                         signatureBytes
                 );
-                log("SIGNATURE58 = {}", signatureBase58);
+                this.log("SIGNATURE58 = {}", signatureBase58);
                 return signatureBase58;
             case BASE64:
                 final String signatureBase64 = Base64.encode(
                         signatureBytes
                 );
-                log("SIGNATURE64 = {}", signatureBase64);
+                this.log("SIGNATURE64 = {}", signatureBase64);
                 return signatureBase64;
             default:
                 throw new IllegalArgumentException(

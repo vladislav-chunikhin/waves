@@ -13,6 +13,6 @@ public class Privilege implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return name;
+        return this.name;
     }
 }

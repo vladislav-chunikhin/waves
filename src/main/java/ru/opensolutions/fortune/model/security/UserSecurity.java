@@ -23,12 +23,12 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getPrivileges();
+        return this.privileges;
     }
 
     @Override
     public String getUsername() {
-        return getLogin();
+        return this.login;
     }
 
     @Override
@@ -48,6 +48,6 @@ public class UserSecurity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return getEnabled();
+        return this.enabled;
     }
 }

@@ -121,14 +121,14 @@ public final class JwtUtils {
             @NonNull final SignedJWT jwt,
             @NonNull final String secret) throws JOSEException
     {
-        JWSVerifier verifier = new MACVerifier(secret);
+        final JWSVerifier verifier = new MACVerifier(secret);
         return jwt.verify(verifier);
     }
 
     private static String AuthorityListToCommaSeparatedString(
             @NonNull final Collection<? extends GrantedAuthority> authorities)
     {
-        Set<String> authoritiesAsSetOfString = AuthorityUtils.authorityListToSet(authorities);
+        final Set<String> authoritiesAsSetOfString = AuthorityUtils.authorityListToSet(authorities);
         return StringUtils.join(authoritiesAsSetOfString, ", ");
     }
 

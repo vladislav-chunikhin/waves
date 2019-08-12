@@ -4,9 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpStatus;
 
-import java.util.Collections;
-import java.util.List;
-
 import static ru.opensolutions.fortune.util.JsonUtils.getJsonFromObject;
 
 /**
@@ -26,7 +23,7 @@ public final class WavesAPI {
      * @return pojo общего ответа. */
     public static <T> WavesResponse positiveResponse(final T data) {
         log.debug("\nRESPONSE = {}", getJsonFromObject(data, true));
-        return new WavesResponse(new StatusResponse(HttpStatus.OK.value(), Collections.emptyList()), new ResultResponse<>(data));
+        return new WavesResponse(new StatusResponse(HttpStatus.OK.value(), Strings.EMPTY), new ResultResponse<>(data));
     }
 
     /**
@@ -34,8 +31,8 @@ public final class WavesAPI {
      * @param code код ошибки.
      * @param message сообщение ошибки.
      * @return pojo общего ответа. */
-    public static WavesResponse negativeResponse(final int code, final List<String> message){
-        log.error("\nCODE = {}\nMESSAGE = {}", code, message.get(0));
-        return new WavesResponse(new StatusResponse(code,message),new ResultResponse<>(Strings.EMPTY));
+    public static WavesResponse negativeResponse(final int code, final String message){
+        log.error("\nCODE = {}\nMESSAGE = {}", code, message);
+        return new WavesResponse(new StatusResponse(code, message),new ResultResponse<>(Strings.EMPTY));
     }
 }

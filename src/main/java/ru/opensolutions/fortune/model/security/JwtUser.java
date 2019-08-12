@@ -1,5 +1,6 @@
 package ru.opensolutions.fortune.model.security;
 
+import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,15 +13,17 @@ public class JwtUser implements UserDetails {
     private String username;
     private Collection<? extends GrantedAuthority> authorities;
 
-
-    public JwtUser(String username, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(
+            @NonNull final String username,
+            @NonNull final  Collection<? extends GrantedAuthority> authorities)
+    {
         this.username = username;
         this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return this.authorities;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class JwtUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     @Override

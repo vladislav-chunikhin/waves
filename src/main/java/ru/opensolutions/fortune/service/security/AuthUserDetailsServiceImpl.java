@@ -22,7 +22,7 @@ public class AuthUserDetailsServiceImpl extends AbstractLogger implements AuthUs
      * @throws UsernameNotFoundException исключение, возникающее, если не был найден пользователь по логину. */
     @Override
     public UserDetails loadUserByUsername(@NonNull final String login) throws UsernameNotFoundException {
-        log("Попытка получения пользователя с логином = {}", login);
+        this.log("Попытка получения пользователя с логином = {}", login);
         if (!user.getLogin().equals(login)) {
            throw new UsernameNotFoundException(login);
         }

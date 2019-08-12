@@ -18,6 +18,6 @@ public abstract class AbstractTransactionLogger extends AbstractLogger {
     protected void logTxAsPrettyJson(@NonNull final Transaction tx) {
         final WavesJsonMapper mapper = new WavesJsonMapper(FortuneConstants.TEST_CHAIN_ID);
         final String txJson = mapper.writeValueAsString(tx);
-        log("Transaction json = {}", JsonUtils.getPrettyJson(txJson));
+        this.log("Transaction json = {}", JsonUtils.getPrettyJson(txJson));
     }
 }

@@ -22,7 +22,6 @@ import ru.opensolutions.fortune.util.log.AbstractTransactionLogger;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.PublicKey;
-import java.util.Collections;
 
 import static ru.opensolutions.fortune.model.constants.FortuneConstants.FEE;
 import static ru.opensolutions.fortune.model.constants.FortuneConstants.TIMESTAMP;

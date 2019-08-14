@@ -1,8 +1,8 @@
-package ru.opensolutions.fortune.configuration.security;
+package ru.opensolutions.fortune.model.constants;
 
 /**
  * Параметры для настройки spring security и jwt. */
-public interface SecurityParamsConfig {
+public interface SecurityConstants {
     /**
      * Ключ jwt для ролей пользователя. */
     String ROLES_CLAIM = "roles";
@@ -37,4 +37,8 @@ public interface SecurityParamsConfig {
     /**
      * Время жизни токена доступа. */
     Integer EXPIRATION_IN_MINUTES_FOR_ACCESS_TOKEN = 1440;
+    /**
+     * Погрешность во времени для истечения время жизни токена в секундах.
+     */
+    Long SKEW = 60L;
 }

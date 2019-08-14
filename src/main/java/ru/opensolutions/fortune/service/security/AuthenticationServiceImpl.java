@@ -5,7 +5,7 @@ import lombok.NonNull;
 import ru.opensolutions.fortune.api.WavesAPI;
 import ru.opensolutions.fortune.api.WavesResponse;
 import ru.opensolutions.fortune.util.log.AbstractLogger;
-import ru.opensolutions.fortune.configuration.security.SecurityParamsConfig;
+import ru.opensolutions.fortune.model.constants.SecurityConstants;
 import ru.opensolutions.fortune.json.request.AuthenticationRequest;
 import ru.opensolutions.fortune.json.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
@@ -47,13 +47,13 @@ public class AuthenticationServiceImpl extends AbstractLogger implements Authent
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final String secret = IOUtils.toString(this.getClass().getResourceAsStream(SecurityParamsConfig.SECRET_FILE));
+        final String secret = IOUtils.toString(this.getClass().getResourceAsStream(SecurityConstants.SECRET_FILE));
         final String accessToken = generateHMACToken(
                 login,
                 authentication.getAuthorities(),
                 secret,
-                SecurityParamsConfig.EXPIRATION_IN_MINUTES_FOR_ACCESS_TOKEN);
+                SecurityConstants.EXPIRATION_IN_MINUTES_FOR_ACCESS_TOKEN);
 
-        return WavesAPI.positiveResponse(new AuthenticationResponse(SecurityParamsConfig.PREFIX_AUTH_HEADER.concat(" ").concat(accessToken)));
+        return WavesAPI.positiveResponse(new AuthenticationResponse(SecurityConstants.PREFIX_AUTH_HEADER.concat(" ").concat(accessToken)));
     }
 }

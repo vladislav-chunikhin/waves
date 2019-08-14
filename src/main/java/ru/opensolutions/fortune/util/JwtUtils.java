@@ -10,7 +10,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.nimbusds.jwt.util.DateUtils;
 import lombok.NonNull;
-import ru.opensolutions.fortune.configuration.security.SecurityParamsConfig;
+import ru.opensolutions.fortune.model.constants.SecurityConstants;
 import ru.opensolutions.fortune.exception.JwtBadSignatureException;
 import ru.opensolutions.fortune.exception.JwtExpirationException;
 import org.apache.commons.lang.StringUtils;
@@ -28,6 +28,12 @@ import static com.nimbusds.jose.JWSAlgorithm.HS256;
 /**
  * Утильный класс для работы с jwt токеном. */
 public final class JwtUtils {
+
+    /**
+     * Запрещаем создавать эксземпляр класса. */
+    private JwtUtils() {
+        throw new RuntimeException();
+    }
 
     /**
      * Метод по генерации токена.
@@ -48,6 +54,15 @@ public final class JwtUtils {
         return generateHMACToken(username, AuthorityListToCommaSeparatedString(roles), secret, expirationInMinutes);
     }
 
+    /**
+     * Метод по генерации токена.
+     * @param username логин пользователя.
+     * @param roles роли пользователя.
+     * @param secret секретный ключ.
+     * @param expirationInMinutes время жизни токена в минутах.
+     * @return auth токен.
+     * @throws JOSEException исключение по время работы метода.
+     */
     public static String generateHMACToken(
             @NonNull final String username,
             @NonNull final String roles,
@@ -59,9 +74,9 @@ public final class JwtUtils {
         final JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .issueTime(currentDate())
                 .expirationTime(expirationDate(expirationInMinutes))
-                .claim(SecurityParamsConfig.ROLES_CLAIM, roles)
-                .claim(SecurityParamsConfig.LOGIN_CLAIM, username)
-                .audience(SecurityParamsConfig.AUDIENCE_WEB)
+                .claim(SecurityConstants.ROLES_CLAIM, roles)
+                .claim(SecurityConstants.LOGIN_CLAIM, username)
+                .audience(SecurityConstants.AUDIENCE_WEB)
                 .build();
 
         final SignedJWT signedJWT =
@@ -86,8 +101,8 @@ public final class JwtUtils {
     public static void assertNotExpired(@NonNull final SignedJWT jwt) throws ParseException
     {
         if (Objects.nonNull(jwt.getJWTClaimsSet().getExpirationTime()) &&
-                DateUtils.isBefore(jwt.getJWTClaimsSet().getExpirationTime(), currentDate(), 60)) {
-            throw new JwtExpirationException("Токен больше не валиден по времени.");
+                DateUtils.isBefore(jwt.getJWTClaimsSet().getExpirationTime(), currentDate(), SecurityConstants.SKEW)) {
+            throw new JwtExpirationException(MessageHelperUtils.getMessage("jwt.expiration.exception"));
         }
     }
 
@@ -117,6 +132,12 @@ public final class JwtUtils {
         return SignedJWT.parse(token);
     }
 
+    /**
+     * @param jwt объект jwt-токена.
+     * @param secret секретный ключ, хранящайся на сервере.
+     * @return true, если токен варифицирован, иначе false.
+     * @throws JOSEException исключение при неверной сигнатуре токена.
+     */
     private static boolean verifyHMACToken(
             @NonNull final SignedJWT jwt,
             @NonNull final String secret) throws JOSEException
@@ -125,6 +146,10 @@ public final class JwtUtils {
         return jwt.verify(verifier);
     }
 
+    /**
+     * @param authorities коллекция ролей пользователя.
+     * @return коллекция {@link GrantedAuthority} в виде строки.
+     */
     private static String AuthorityListToCommaSeparatedString(
             @NonNull final Collection<? extends GrantedAuthority> authorities)
     {
@@ -132,17 +157,31 @@ public final class JwtUtils {
         return StringUtils.join(authoritiesAsSetOfString, ", ");
     }
 
+    /**
+     * @param jwt объект jwt-токена.
+     * @return логин пользователя.
+     * @throws ParseException исключение, возникающее при парсинге {@link SignedJWT}.
+     */
     public static String getUsername(@NonNull final SignedJWT jwt) throws ParseException
     {
-        return (String) jwt.getJWTClaimsSet().getClaims().get("login");
+        return (String) jwt.getJWTClaimsSet().getClaims().get(SecurityConstants.LOGIN_CLAIM);
     }
 
+    /**
+     * @param jwt объект jwt-токена.
+     * @return коллекция ролей пользователя.
+     * @throws ParseException исключение, возникающее при парсинге {@link SignedJWT}.
+     */
     public static Collection<? extends GrantedAuthority> getRoles(@NonNull final SignedJWT jwt) throws ParseException
     {
-        final String roles = jwt.getJWTClaimsSet().getStringClaim(SecurityParamsConfig.ROLES_CLAIM);
+        final String roles = jwt.getJWTClaimsSet().getStringClaim(SecurityConstants.ROLES_CLAIM);
         return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
     }
 
+    /**
+     * @param expirationInMinutes время окончания токена в минутах.
+     * @return {@link Date}.
+     */
     private static Date expirationDate(@NonNull final int expirationInMinutes)
     {
         return new Date(System.currentTimeMillis() + expirationInMinutes * 60 * 1000);

@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import ru.opensolutions.fortune.exception.JwtBadSignatureException;
 import ru.opensolutions.fortune.exception.JwtExpirationException;
 import ru.opensolutions.fortune.exception.MalformedJwtException;
-import ru.opensolutions.fortune.configuration.security.SecurityParamsConfig;
+import ru.opensolutions.fortune.model.constants.SecurityConstants;
 import ru.opensolutions.fortune.model.security.JwtUser;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -70,7 +70,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
             return;
         }
 
-        final List<String> urlPatterns = Collections.singletonList(SecurityParamsConfig.AUTH_URL);
+        final List<String> urlPatterns = Collections.singletonList(SecurityConstants.AUTH_URL);
 
         if (urlPatterns.contains(request.getRequestURI())) {
             chain.doFilter(request, response);
@@ -78,7 +78,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
         }
 
         final String header = request.getHeader(AUTHORIZATION);
-        if (Objects.isNull(header) || !header.startsWith(SecurityParamsConfig.PREFIX_AUTH_HEADER)) {
+        if (Objects.isNull(header) || !header.startsWith(SecurityConstants.PREFIX_AUTH_HEADER)) {
             chain.doFilter(request, response);
             return;
         }
@@ -102,7 +102,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
      * @throws ParseException какое-либо исключение во время парсинга. */
     private SignedJWT extractAndDecodeJwt(@NonNull final HttpServletRequest request) throws ParseException {
         final String authHeader = request.getHeader(AUTHORIZATION);
-        final String token = authHeader.substring(SecurityParamsConfig.PREFIX_AUTH_HEADER.length());
+        final String token = authHeader.substring(SecurityConstants.PREFIX_AUTH_HEADER.length());
         return parse(token);
     }
 

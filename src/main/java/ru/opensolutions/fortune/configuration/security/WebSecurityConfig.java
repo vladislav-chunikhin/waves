@@ -1,8 +1,10 @@
 package ru.opensolutions.fortune.configuration.security;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import ru.opensolutions.fortune.configuration.web.filter.JwtTokenAuthenticationFilter;
+import ru.opensolutions.fortune.model.constants.SecurityConstants;
 import ru.opensolutions.fortune.service.security.AuthUserDetailsService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(authUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         provider.setAuthoritiesMapper(authoritiesMapper());
@@ -70,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public GrantedAuthoritiesMapper authoritiesMapper() {
-        SimpleAuthorityMapper mapper = new SimpleAuthorityMapper();
+        final SimpleAuthorityMapper mapper = new SimpleAuthorityMapper();
         mapper.setConvertToUpperCase(true);
         return mapper;
     }
@@ -89,7 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @param auth Билдер менеджера аутентификации.
      */
     @Override
-    public void configure(AuthenticationManagerBuilder auth) {
+    public void configure(@NonNull final AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -98,9 +100,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @param http http security Объект.
      * @throws Exception Любые исключения при настройки. */
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(@NonNull final HttpSecurity http) throws Exception {
 
-        String secret = IOUtils.toString(this.getClass().getResourceAsStream(SecurityParamsConfig.SECRET_FILE));
+        final String secret
+                = IOUtils.toString(this.getClass().getResourceAsStream(SecurityConstants.SECRET_FILE));
 
         http
                 .csrf().disable()
@@ -120,8 +123,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.GET, SecurityParamsConfig.NONE_SECURITY).permitAll()
-                .antMatchers(HttpMethod.POST, SecurityParamsConfig.AUTH_URL).permitAll()
+                .antMatchers(HttpMethod.GET, SecurityConstants.NONE_SECURITY).permitAll()
+                .antMatchers(HttpMethod.POST, SecurityConstants.AUTH_URL).permitAll()
                 .anyRequest().authenticated();
 
     }

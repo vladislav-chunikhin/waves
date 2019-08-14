@@ -16,8 +16,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 /**
  * Обёртка для http ответа. */
 public final class ServletResponseWrapperUtils {
+
+    /**
+     * Запрещаем создавать эксземпляр класса. */
+    private ServletResponseWrapperUtils() {
+        throw new RuntimeException();
+    }
+
     @SneakyThrows(IOException.class)
-    public void setServletResponseWrapper(
+    public static void setServletResponseWrapper(
             @NonNull final HttpServletResponse response,
             @NonNull final String errorMsg,
             @NonNull final int status) {

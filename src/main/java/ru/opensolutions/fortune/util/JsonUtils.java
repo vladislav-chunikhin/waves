@@ -7,11 +7,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import lombok.NonNull;
-import lombok.SneakyThrows;
 
 /**
  * Класс для работы с json. */
 public final class JsonUtils {
+
+
+    /**
+     * Запрещаем создавать эксземпляр класса. */
+    private JsonUtils() {
+        throw new RuntimeException();
+    }
 
     /**
      * Преобразование json в красивый вид.
@@ -31,11 +37,14 @@ public final class JsonUtils {
      * @param obj Объект.
      * @param isPretty флаг на красивость json.
      * @return json строка. */
-    @SneakyThrows(JsonProcessingException.class)
     public static String getJsonFromObject(@NonNull final Object obj,
                                            @NonNull final boolean isPretty) {
         final ObjectMapper objectMapper = new ObjectMapper();
-        final String json = objectMapper.writeValueAsString(obj);
-        return isPretty ? getPrettyJson(json) : json;
+        try {
+            final String json = objectMapper.writeValueAsString(obj);
+            return isPretty ? getPrettyJson(json) : json;
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        }
     }
 }

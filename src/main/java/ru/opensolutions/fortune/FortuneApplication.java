@@ -8,7 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = {
         "classpath:application.properties",
         "classpath:waves.properties",
-        "classpath:security.properties"
+        "classpath:security.properties",
+        "classpath:message.properties"
 }, encoding = "UTF-8")
 public class FortuneApplication {
 

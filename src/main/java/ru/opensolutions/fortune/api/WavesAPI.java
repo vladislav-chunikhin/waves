@@ -33,6 +33,6 @@ public final class WavesAPI {
      * @return pojo общего ответа. */
     public static WavesResponse negativeResponse(final int code, final String message){
         log.error("\nCODE = {}\nMESSAGE = {}", code, message);
-        return new WavesResponse(new StatusResponse(code, message),new ResultResponse<>(Strings.EMPTY));
+        return new WavesResponse(new StatusResponse(code, message), new ResultResponse<>(Strings.EMPTY));
     }
 }

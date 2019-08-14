@@ -1,6 +1,7 @@
 package ru.opensolutions.fortune.configuration.security;
 
 import lombok.NonNull;
+import ru.opensolutions.fortune.util.MessageHelperUtils;
 import ru.opensolutions.fortune.util.ServletResponseWrapperUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -20,16 +21,15 @@ public class SecurityAuthenticationEntryPoint implements AuthenticationEntryPoin
             @NonNull final HttpServletResponse response,
             @NonNull final AuthenticationException authException)
     {
-        final ServletResponseWrapperUtils servletResponseWrapperUtils = new ServletResponseWrapperUtils();
         if (authException instanceof InsufficientAuthenticationException){
-            servletResponseWrapperUtils.setServletResponseWrapper(
+            ServletResponseWrapperUtils.setServletResponseWrapper(
                     response,
-                    "Для доступа к этому ресурсу требуется аутентификация.",
+                    MessageHelperUtils.getMessage("authentication.entry.point.msg"),
                     HttpStatus.UNAUTHORIZED.value()
             );
             return;
         }
-        servletResponseWrapperUtils.setServletResponseWrapper(
+        ServletResponseWrapperUtils.setServletResponseWrapper(
                 response,
                 authException.getMessage(),
                 HttpStatus.UNAUTHORIZED.value()

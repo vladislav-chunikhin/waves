@@ -35,12 +35,22 @@ import static ru.opensolutions.fortune.util.enums.SignatureType.BASE64;
 @RequiredArgsConstructor
 public class FortuneServiceImpl extends AbstractTransactionLogger implements FortuneService {
 
+    /**
+     * Компонент настроек для waves аккаунтов и java security пакета. */
     private final SecurityAndWavesParams securityAndWavesParams;
+    /**
+     * Интерфейс, необходимый для формирования подписи
+     * и работы с приватными и публичными ключами. */
     private final CryptographyComponent cryptographyComponent;
+    /**
+     * Компонент для заполнения транзакции параметрами. */
     private final ParamFillingTransactionComponent paramFillingTransactionComponent;
+    /**
+     * Комопнент для работы с dApp адресами. */
     private final DAppAddressComponent dAppAddressComponent;
 
     @SneakyThrows(URISyntaxException.class)
+    @Override
     public WavesResponse sendData(
             @NonNull final SendDataToNodeRequest request,
             @NonNull final String function) {
@@ -132,6 +142,7 @@ public class FortuneServiceImpl extends AbstractTransactionLogger implements For
         return WavesAPI.positiveResponse(new TransactionIdResponse(txIdResponse));
     }
 
+    @Override
     public WavesResponse signData(@NonNull final TransactionIdRequest request) {
         final String methodName = "signData";
         this.logStartMethod(methodName);

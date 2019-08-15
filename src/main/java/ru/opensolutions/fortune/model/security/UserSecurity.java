@@ -3,6 +3,7 @@ package ru.opensolutions.fortune.model.security;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.opensolutions.fortune.model.constants.SecurityConstants;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,9 +14,9 @@ import java.util.List;
 @Data
 public class UserSecurity implements UserDetails {
 
-    private String login = "open-solutions";
+    private String login = SecurityConstants.DEFAULT_LOGIN;
 
-    private String password = "$2a$11$C4CfCC2tED2TO/hh.RYgdu0n8R7McommC99vNH3S5EtExnjIeY3Wq";
+    private String password = SecurityConstants.DEFAULT_PASSWORD;
 
     private Boolean enabled = Boolean.TRUE;
 

@@ -6,7 +6,7 @@ import static com.wavesplatform.wavesj.Asset.toWavelets;
 
 /**
  * Константы для сервиса Fortune. */
-public class FortuneConstants {
+public final class FortuneConstants {
     /**
      * Запрещаем создавать эксземпляр данного класса. */
     private FortuneConstants() {

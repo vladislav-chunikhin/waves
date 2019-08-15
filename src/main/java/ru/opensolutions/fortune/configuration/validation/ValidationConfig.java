@@ -3,6 +3,7 @@ package ru.opensolutions.fortune.configuration.validation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.opensolutions.fortune.util.MessageHelperUtils;
 import ru.opensolutions.fortune.util.enums.AuthOptionType;
 
 import java.util.Arrays;
@@ -27,9 +28,8 @@ public class ValidationConfig {
                 .collect(Collectors.toList());
         final boolean isValidOption = allOptions.contains(authSwitcher);
         if (!isValidOption) {
-            throw new IllegalArgumentException(format(
-                    "Invalid value for auth.switch. The valid values: %s" +
-                            " The current value: %s", allOptions, authSwitcher));
+            throw new IllegalArgumentException(
+                    MessageHelperUtils.getMessage("auth.switch.exception", allOptions, authSwitcher));
         }
     }
 }

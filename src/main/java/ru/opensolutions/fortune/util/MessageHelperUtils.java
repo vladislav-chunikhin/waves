@@ -22,7 +22,7 @@ public final class MessageHelperUtils {
     private static final ResourceBundle RESOURCE;
 
     /**
-     * Название properties файла с сообщениями исключений. */
+     * Название properties файла с сообщениями. */
     private static final String EXCEPTION_PROPERTIES_FILE_NAME = "message";
 
     static {

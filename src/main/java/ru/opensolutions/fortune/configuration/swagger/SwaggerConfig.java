@@ -38,6 +38,8 @@ public class SwaggerConfig {
 
     private static final String TITLE = "Документация по используемым ресурсам на сервере для Fortune";
     private static final String GROUP_NAME = "Сервис по обработке идентификатора транзакции";
+    private static final String PREFIX_AUTH = "Bearer";
+    private static final String TYPE_API = "header";
 
     @Value("${swagger.project.version}")
     private String version;
@@ -55,13 +57,13 @@ public class SwaggerConfig {
             case ON:
                 return new Docket(DocumentationType.SWAGGER_2)
                         .securitySchemes(Collections.singletonList(
-                                new ApiKey("Bearer", HttpHeaders.AUTHORIZATION, "header")
+                                new ApiKey(PREFIX_AUTH, HttpHeaders.AUTHORIZATION, TYPE_API)
                         ))
                         .securityContexts(Collections.singletonList(
                                 SecurityContext.builder()
                                         .securityReferences(
                                                 Collections.singletonList(SecurityReference.builder()
-                                                        .reference("Bearer")
+                                                        .reference(PREFIX_AUTH)
                                                         .scopes(new AuthorizationScope[0])
                                                         .build()
                                                 )

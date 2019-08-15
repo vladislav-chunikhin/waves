@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
+import ru.opensolutions.fortune.util.MessageHelperUtils;
 import ru.opensolutions.fortune.util.enums.AuthOptionType;
 
 import javax.servlet.FilterChain;
@@ -92,7 +93,8 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
         } catch (JwtBadSignatureException | JOSEException | JwtExpirationException ex ) {
             throw new MalformedJwtException(ex.toString());
         } catch (ParseException ex) {
-            throw new MalformedJwtException(String.format("Неверно составлен токен. Ошибка при парсинге:%s", ex.toString()));
+            throw new MalformedJwtException(
+                    MessageHelperUtils.getMessage("malformed.jwt.exception", ex.toString()));
         }
     }
 
@@ -142,9 +144,9 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
     private Authentication buildDefaultAuthentication(@NonNull final HttpServletRequest request)
     {
         final List<GrantedAuthority> authorities =
-                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN");
+                AuthorityUtils.commaSeparatedStringToAuthorityList(SecurityConstants.DEFAULT_ROLE);
         final JwtUser defaultUserDetails = new JwtUser(
-                "open-solutions",
+                SecurityConstants.DEFAULT_LOGIN,
                 authorities
                 );
         final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

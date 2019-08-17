@@ -36,14 +36,26 @@ import java.util.HashSet;
 @Lazy
 public class SwaggerConfig {
 
+    /**
+     * Заголовок документации. */
     private static final String TITLE = "Документация по используемым ресурсам на сервере для Fortune";
+    /**
+     * Заголовок спеки. */
     private static final String GROUP_NAME = "Сервис по обработке идентификатора транзакции";
+    /**
+     * Key для авторизации. */
     private static final String PREFIX_AUTH = "Bearer";
+    /**
+     * Тип api для авторизации. */
     private static final String TYPE_API = "header";
 
+    /**
+     * Версия сборки. */
     @Value("${swagger.project.version}")
     private String version;
 
+    /**
+     * Настройка по включению | выключению авторизации в проекте. */
     @Value("${auth.switch}")
     private String authSwitcher;
 

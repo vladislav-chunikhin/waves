@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
+/**
+ * Главный класс для SpringBootApplication. */
 @SpringBootApplication
 @PropertySource(value = {
         "classpath:application.properties",
@@ -13,7 +15,9 @@ import org.springframework.context.annotation.PropertySource;
 }, encoding = "UTF-8")
 public class FortuneApplication {
 
-    public static void main(String[] args) {
+    /**
+     * @param args аргументы для запуска приложения. */
+    public static void main(final String[] args) {
         SpringApplication.run(FortuneApplication.class, args);
     }
 

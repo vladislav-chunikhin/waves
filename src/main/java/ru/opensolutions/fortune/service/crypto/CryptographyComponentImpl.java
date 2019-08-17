@@ -33,6 +33,8 @@ import java.security.spec.X509EncodedKeySpec;
 @Component
 public class CryptographyComponentImpl extends AbstractLogger implements CryptographyComponent {
 
+    /**
+     * Компонент настроек для waves аккаунтов и java security пакета. */
     @Autowired
     private SecurityAndWavesParams securityAndWavesParams;
 

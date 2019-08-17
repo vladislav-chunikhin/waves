@@ -16,7 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
-import ru.opensolutions.fortune.util.MessageHelperUtils;
+import ru.opensolutions.fortune.util.MessageUtils;
 import ru.opensolutions.fortune.util.enums.AuthOptionType;
 
 import javax.servlet.FilterChain;
@@ -27,23 +27,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
 
-import static ru.opensolutions.fortune.util.JwtUtils.*;
+import java.util.List;
+import java.util.Collections;
+import java.util.Collection;
+import java.util.Objects;
+
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static ru.opensolutions.fortune.util.JwtUtils.assertNotExpired;
+import static ru.opensolutions.fortune.util.JwtUtils.assertValidSignature;
+import static ru.opensolutions.fortune.util.JwtUtils.parse;
+import static ru.opensolutions.fortune.util.JwtUtils.getUsername;
+import static ru.opensolutions.fortune.util.JwtUtils.getRoles;
 
 /**
  * Фильтр для всех http запросов. */
 public class JwtTokenAuthenticationFilter extends GenericFilterBean {
 
+    /**
+     * Секретный ключ. */
     private String secretKey;
+    /**
+     * Настройка по включению | выключению авторизации в проекте. */
     private String authSwitch;
 
     /**
      * @param secretKey секретный ключ.
      * @param authSwitch опция для авторизации. */
     public JwtTokenAuthenticationFilter(@NonNull final String secretKey,
-                                        @NonNull final String authSwitch) {
+                                        @NonNull final String authSwitch)
+    {
         this.secretKey = secretKey;
         this.authSwitch = authSwitch;
     }
@@ -94,7 +107,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
             throw new MalformedJwtException(ex.toString());
         } catch (ParseException ex) {
             throw new MalformedJwtException(
-                    MessageHelperUtils.getMessage("malformed.jwt.exception", ex.toString()));
+                    MessageUtils.getMessage("malformed.jwt.exception", ex.toString()));
         }
     }
 

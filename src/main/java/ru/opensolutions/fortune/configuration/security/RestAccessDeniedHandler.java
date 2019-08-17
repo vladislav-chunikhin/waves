@@ -1,7 +1,7 @@
 package ru.opensolutions.fortune.configuration.security;
 
 import lombok.NonNull;
-import ru.opensolutions.fortune.util.MessageHelperUtils;
+import ru.opensolutions.fortune.util.MessageUtils;
 import ru.opensolutions.fortune.util.ServletResponseWrapperUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -22,7 +22,7 @@ public class RestAccessDeniedHandler implements AccessDeniedHandler {
     {
         ServletResponseWrapperUtils.setServletResponseWrapper(
                 response,
-                MessageHelperUtils.getMessage("access.denied.msg"),
+                MessageUtils.getMessage("access.denied.msg"),
                 HttpStatus.FORBIDDEN.value()
         );
     }

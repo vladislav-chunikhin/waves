@@ -1,0 +1,1 @@
+package ru.opensolutions.fortune.service;

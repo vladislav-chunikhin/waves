@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<!-- Исключения из правил проверок плагина Checkstyle -->
+<suppressions>
+    <!--
+        Исключение на проверку public и default конструкторов в классах, содержащих только статичные методы.
+        Данная проверка не учитывает особенности реализации точки входа для spring-boot приложения, так что отключаем
+        проверку для соответствующего класса. Описание проблемы https://github.com/checkstyle/checkstyle/issues/3155
+    -->
+    <suppress id="hideUtilityClassConstructor" files="FortuneApplication.java"/>
+</suppressions>

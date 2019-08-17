@@ -26,7 +26,14 @@ import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import static org.springframework.http.HttpMethod.*;
+
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.http.HttpMethod.HEAD;
+import static org.springframework.http.HttpMethod.PATCH;
 
 /**
  * Настройка для http security. */
@@ -36,6 +43,8 @@ import static org.springframework.http.HttpMethod.*;
 @Lazy
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * Настройка по включению | выключению авторизации в проекте. */
     @Value("${auth.switch}")
     private String authSwitcher;
 
@@ -47,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public WebSecurityConfig(AuthUserDetailsService authUserDetailsService, PasswordEncoder passwordEncoder) {
+    public WebSecurityConfig(final AuthUserDetailsService authUserDetailsService, final PasswordEncoder passwordEncoder) {
         super(true);
         this.authUserDetailsService = authUserDetailsService;
         this.passwordEncoder = passwordEncoder;
@@ -152,7 +161,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * @param secret секретный ключ в виде строки.
      * @return настроенный jwt фильтр. */
-    private JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter(String secret) {
+    private JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter(final String secret) {
         return new JwtTokenAuthenticationFilter(secret, authSwitcher);
     }
 }

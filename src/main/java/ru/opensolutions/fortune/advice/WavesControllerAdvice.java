@@ -19,7 +19,9 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 public class WavesControllerAdvice extends AbstractLogger {
 
     /**
-     * Перехватывает все ошибки связанные с валидацией. */
+     * Перехватывает все ошибки связанные с валидацией
+     * @param ex исключения по валидации параметров.
+     * @return {@link WavesResponse} общий ответ API. */
     @ExceptionHandler({
             IllegalArgumentException.class,
             ValidationException.class
@@ -31,7 +33,9 @@ public class WavesControllerAdvice extends AbstractLogger {
     }
 
     /**
-     * Общий перехватчик ошибок. */
+     * Общий перехватчик ошибок.
+     * @param t любые исключения.
+     * @return {@link WavesResponse} общий ответ API. */
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public WavesResponse handleException(@NonNull final Throwable t) {

@@ -12,6 +12,8 @@ import ru.opensolutions.fortune.util.enums.FunctionType;
 @RequiredArgsConstructor
 class DAppAddressComponentImpl implements DAppAddressComponent {
 
+    /**
+     * Компонент настроек для waves аккаунтов и java security пакета. */
     private final SecurityAndWavesParams securityAndWavesParams;
 
     public String getDAppValueByFunctionType(@NonNull final FunctionType functionType) {

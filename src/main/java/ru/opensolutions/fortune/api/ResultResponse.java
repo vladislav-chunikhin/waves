@@ -9,7 +9,8 @@ import lombok.Getter;
 class ResultResponse<T> {
 
     /**
-     * Данные. */
+     * Данные.
+     * @param <T> параметризированный тип данных. */
     @Getter
     private final T data;
 

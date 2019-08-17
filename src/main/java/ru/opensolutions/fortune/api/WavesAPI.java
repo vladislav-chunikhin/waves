@@ -20,6 +20,7 @@ public final class WavesAPI {
     /**
      * Положительный ответ.
      * @param data данные.
+     * @param <T> параметризированный тип данных.
      * @return pojo общего ответа. */
     public static <T> WavesResponse positiveResponse(final T data) {
         log.debug("\nRESPONSE = {}", getJsonFromObject(data, true));
@@ -31,7 +32,7 @@ public final class WavesAPI {
      * @param code код ошибки.
      * @param message сообщение ошибки.
      * @return pojo общего ответа. */
-    public static WavesResponse negativeResponse(final int code, final String message){
+    public static WavesResponse negativeResponse(final int code, final String message) {
         log.error("\nCODE = {}\nMESSAGE = {}", code, message);
         return new WavesResponse(new StatusResponse(code, message), new ResultResponse<>(Strings.EMPTY));
     }

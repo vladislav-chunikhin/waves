@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
  * Общая настройка для деплоя на сервак. */
 @Configuration
 public class CommonConfig {
+
+    /**
+     * @return объект {@link ApplicationConversionService}. */
     @Bean
     ApplicationConversionService applicationConversionService() {
         return new ApplicationConversionService();

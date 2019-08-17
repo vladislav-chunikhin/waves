@@ -9,11 +9,11 @@ import java.util.ResourceBundle;
 
 /**
  *  Утильный класс для получения текста из properties файлов. */
-public final class MessageHelperUtils {
+public final class MessageUtils {
 
     /**
      * Запрещаем создавать эксземпляр класса. */
-    private MessageHelperUtils() {
+    private MessageUtils() {
         throw new RuntimeException();
     }
 
@@ -56,7 +56,7 @@ public final class MessageHelperUtils {
      * @return сообщение, соответствующее переданному ключу.
      */
     private static String getMessage(@NonNull final String templateKey) {
-        EXCEPTION_MESSAGES.computeIfAbsent(templateKey, MessageHelperUtils::getString);
+        EXCEPTION_MESSAGES.computeIfAbsent(templateKey, MessageUtils::getString);
         return EXCEPTION_MESSAGES.get(templateKey);
     }
 

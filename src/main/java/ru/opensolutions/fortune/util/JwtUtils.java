@@ -102,7 +102,7 @@ public final class JwtUtils {
     {
         if (Objects.nonNull(jwt.getJWTClaimsSet().getExpirationTime()) &&
                 DateUtils.isBefore(jwt.getJWTClaimsSet().getExpirationTime(), currentDate(), SecurityConstants.SKEW)) {
-            throw new JwtExpirationException(MessageHelperUtils.getMessage("jwt.expiration.exception"));
+            throw new JwtExpirationException(MessageUtils.getMessage("jwt.expiration.exception"));
         }
     }
 

@@ -6,12 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * created by vlad on 21.07.19
+ * pojo для ответа авторизации.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthenticationResponse {
+    /**
+     * Токен доступа в строком представлении. */
     @JsonProperty("access_token")
     private String accessToken;
 }

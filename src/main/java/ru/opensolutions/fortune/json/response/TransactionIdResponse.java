@@ -8,11 +8,12 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * created by vlad on 18.07.19
- */
+ * pojo для ответа идентификатора транзакции. */
 @AllArgsConstructor
 public class TransactionIdResponse implements Serializable {
 
+    /**
+     * Идентификатор транзакции. */
     @JsonProperty("tx_id")
     @Getter
     @Setter

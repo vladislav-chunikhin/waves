@@ -3,7 +3,9 @@ package ru.opensolutions.fortune.exception;
 /**
  * Исключение при валидации токена. */
 public class JwtExpirationException extends RuntimeException {
-    public JwtExpirationException(String message) {
+    /**
+     * @param message сообщение ошибки. */
+    public JwtExpirationException(final String message) {
         super(message);
     }
 }

@@ -6,11 +6,12 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * created by vlad on 30.06.19
- */
+ * pojo для запроса на отправку txId. */
 @Data
 public class TransactionIdRequest implements Serializable {
 
+    /**
+     * Идентификатор транзакции. */
     @JsonProperty("tx_id")
     private String txId;
 }

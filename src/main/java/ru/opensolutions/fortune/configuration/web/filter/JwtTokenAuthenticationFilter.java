@@ -103,7 +103,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
             final Authentication auth = this.buildAuthentication(jwt, request);
             SecurityContextHolder.getContext().setAuthentication(auth);
             chain.doFilter(request, response);
-        } catch (JwtBadSignatureException | JOSEException | JwtExpirationException ex ) {
+        } catch (JwtBadSignatureException | JOSEException | JwtExpirationException ex) {
             throw new MalformedJwtException(ex.toString());
         } catch (ParseException ex) {
             throw new MalformedJwtException(
@@ -154,8 +154,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
     /**
      * @param request http запрос.
      * @return {@link Authentication} объект авторизации пользователя который устанавливается в контекст приложения. */
-    private Authentication buildDefaultAuthentication(@NonNull final HttpServletRequest request)
-    {
+    private Authentication buildDefaultAuthentication(@NonNull final HttpServletRequest request) {
         final List<GrantedAuthority> authorities =
                 AuthorityUtils.commaSeparatedStringToAuthorityList(SecurityConstants.DEFAULT_ROLE);
         final JwtUser defaultUserDetails = new JwtUser(

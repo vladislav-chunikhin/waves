@@ -30,6 +30,10 @@ import static com.nimbusds.jose.JWSAlgorithm.HS256;
 public final class JwtUtils {
 
     /**
+     * Коэффициент для расчета даты в миллисекундах. */
+    private static final long COEFFICIENT = 60000L;
+
+    /**
      * Запрещаем создавать эксземпляр класса. */
     private JwtUtils() {
         throw new RuntimeException();
@@ -51,7 +55,7 @@ public final class JwtUtils {
             @NonNull final int expirationInMinutes)
             throws JOSEException
     {
-        return generateHMACToken(username, AuthorityListToCommaSeparatedString(roles), secret, expirationInMinutes);
+        return generateHMACToken(username, authorityListToCommaSeparatedString(roles), secret, expirationInMinutes);
     }
 
     /**
@@ -98,10 +102,10 @@ public final class JwtUtils {
      * @param jwt токен.
      * @throws ParseException исключение во время парсинга токена.
      */
-    public static void assertNotExpired(@NonNull final SignedJWT jwt) throws ParseException
-    {
-        if (Objects.nonNull(jwt.getJWTClaimsSet().getExpirationTime()) &&
-                DateUtils.isBefore(jwt.getJWTClaimsSet().getExpirationTime(), currentDate(), SecurityConstants.SKEW)) {
+    public static void assertNotExpired(@NonNull final SignedJWT jwt) throws ParseException {
+        if (Objects.nonNull(jwt.getJWTClaimsSet().getExpirationTime())
+                && DateUtils.isBefore(jwt.getJWTClaimsSet().getExpirationTime(), currentDate(), SecurityConstants.SKEW))
+        {
             throw new JwtExpirationException(MessageUtils.getMessage("jwt.expiration.exception"));
         }
     }
@@ -127,8 +131,7 @@ public final class JwtUtils {
      * @return токен в виде объекта
      * @throws ParseException исключение во время парсинга токена.
      */
-    public static SignedJWT parse(@NonNull final String token) throws ParseException
-    {
+    public static SignedJWT parse(@NonNull final String token) throws ParseException {
         return SignedJWT.parse(token);
     }
 
@@ -150,7 +153,7 @@ public final class JwtUtils {
      * @param authorities коллекция ролей пользователя.
      * @return коллекция {@link GrantedAuthority} в виде строки.
      */
-    private static String AuthorityListToCommaSeparatedString(
+    private static String authorityListToCommaSeparatedString(
             @NonNull final Collection<? extends GrantedAuthority> authorities)
     {
         final Set<String> authoritiesAsSetOfString = AuthorityUtils.authorityListToSet(authorities);
@@ -162,8 +165,7 @@ public final class JwtUtils {
      * @return логин пользователя.
      * @throws ParseException исключение, возникающее при парсинге {@link SignedJWT}.
      */
-    public static String getUsername(@NonNull final SignedJWT jwt) throws ParseException
-    {
+    public static String getUsername(@NonNull final SignedJWT jwt) throws ParseException {
         return (String) jwt.getJWTClaimsSet().getClaims().get(SecurityConstants.LOGIN_CLAIM);
     }
 
@@ -172,8 +174,7 @@ public final class JwtUtils {
      * @return коллекция ролей пользователя.
      * @throws ParseException исключение, возникающее при парсинге {@link SignedJWT}.
      */
-    public static Collection<? extends GrantedAuthority> getRoles(@NonNull final SignedJWT jwt) throws ParseException
-    {
+    public static Collection<? extends GrantedAuthority> getRoles(@NonNull final SignedJWT jwt) throws ParseException {
         final String roles = jwt.getJWTClaimsSet().getStringClaim(SecurityConstants.ROLES_CLAIM);
         return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
     }
@@ -182,8 +183,7 @@ public final class JwtUtils {
      * @param expirationInMinutes время окончания токена в минутах.
      * @return {@link Date}.
      */
-    private static Date expirationDate(@NonNull final int expirationInMinutes)
-    {
-        return new Date(System.currentTimeMillis() + expirationInMinutes * 60 * 1000);
+    private static Date expirationDate(@NonNull final int expirationInMinutes) {
+        return new Date(System.currentTimeMillis() + expirationInMinutes * COEFFICIENT);
     }
 }

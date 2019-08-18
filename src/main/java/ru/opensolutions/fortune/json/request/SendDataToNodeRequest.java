@@ -6,16 +6,19 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * created by vlad on 07.07.19
- */
+ * Расширенный pojo для запроса на отправку txId. */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ToString(callSuper = true)
 public class SendDataToNodeRequest extends TransactionIdRequest {
 
+    /**
+     * Номер теста. */
     @JsonProperty("test_number")
     private String testNumber;
 
+    /**
+     * Значение ставки. */
     @JsonProperty("bet_value")
     private String betValue;
 }

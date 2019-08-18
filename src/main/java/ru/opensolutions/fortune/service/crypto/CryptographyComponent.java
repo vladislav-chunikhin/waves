@@ -1,6 +1,5 @@
 package ru.opensolutions.fortune.service.crypto;
 
-import lombok.NonNull;
 import org.bouncycastle.util.io.pem.PemObject;
 import ru.opensolutions.fortune.util.enums.SignatureType;
 
@@ -16,13 +15,13 @@ public interface CryptographyComponent {
      * Подписание данных приватным ключом.
      * @param data Данные, которые необходимо подписать приватным ключом.
      * @return Сформированная подпись в виде массива байтов. */
-    byte[] signDataByPrivateKey(@NonNull final String data);
+    byte[] signDataByPrivateKey(String data);
 
     /**
      * Верификация подписи.
      * @param data Данные, которые необходимо проверить.
      * @param signature Подпись для верификации. */
-    void verifySignature(@NonNull final String data, @NonNull byte[] signature);
+    void verifySignature(String data, byte[] signature);
 
     /**
      * Получение публичного ключа.
@@ -39,12 +38,12 @@ public interface CryptographyComponent {
      * @param path Путь ресурса, где находится ключ.
      * @return Объект в формате PEM, который используется в спеке
      * и преобразуется в необходимый объект. */
-    PemObject getPemObjectFromFile(@NonNull final String path);
+    PemObject getPemObjectFromFile(String path);
 
     /**
      * Получение подписи в виде строки.
      * @param data Данные для подписи.
      * @param signatureType Тип подписи.
      * @return Подпись. */
-    String getSignatureAsString(@NonNull final String data, @NonNull final SignatureType signatureType);
+    String getSignatureAsString(String data, SignatureType signatureType);
 }

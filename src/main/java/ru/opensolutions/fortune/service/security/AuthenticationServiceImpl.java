@@ -29,9 +29,12 @@ import static ru.opensolutions.fortune.util.JwtUtils.generateHMACToken;
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl extends AbstractLogger implements AuthenticationService {
 
+    /**
+     * Бин менеджера аутентификации. */
     private final AuthenticationManager authenticationManager;
 
     @SneakyThrows({IOException.class, JOSEException.class})
+    @Override
     public WavesResponse authenticationRequest(@NonNull final AuthenticationRequest authenticationRequest) {
         final String methodName = "authenticationRequest";
         this.logStartMethod(methodName);
@@ -39,7 +42,7 @@ public class AuthenticationServiceImpl extends AbstractLogger implements Authent
         final String password = authenticationRequest.getPassword();
 
         final Authentication authentication;
-        try{
+        try {
             authentication = this.authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(login, password));
         } catch (AuthenticationException e) {
@@ -54,6 +57,7 @@ public class AuthenticationServiceImpl extends AbstractLogger implements Authent
                 secret,
                 SecurityConstants.EXPIRATION_IN_MINUTES_FOR_ACCESS_TOKEN);
 
-        return WavesAPI.positiveResponse(new AuthenticationResponse(SecurityConstants.PREFIX_AUTH_HEADER.concat(" ").concat(accessToken)));
+        return WavesAPI.positiveResponse(new AuthenticationResponse(
+                SecurityConstants.PREFIX_AUTH_HEADER.concat(" ").concat(accessToken)));
     }
 }

@@ -18,10 +18,12 @@ import java.util.Collections;
  * Ресурс для проверки сервера. */
 @RestController
 @RequestMapping("/system")
-@Api(tags ="Ресурс для проверки сервера")
+@Api(tags = "Ресурс для проверки сервера")
 @SwaggerMarker
 public class SystemController extends AbstractLogger {
 
+    /**
+     * @return текущее время сервера в json формате. */
     @GetMapping("/time")
     @ApiOperation("Получение текущего времени сервера")
     @PreAuthorize("hasRole('ADMIN')")

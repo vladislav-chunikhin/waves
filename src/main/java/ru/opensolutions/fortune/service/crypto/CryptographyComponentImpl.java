@@ -29,7 +29,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * Реализация интерфейса {@link CryptographyComponent} */
+ * Реализация интерфейса {@link CryptographyComponent}. */
 @Component
 public class CryptographyComponentImpl extends AbstractLogger implements CryptographyComponent {
 
@@ -133,8 +133,9 @@ public class CryptographyComponentImpl extends AbstractLogger implements Cryptog
         PemObject pemObject = null;
         try {
             final InputStream resourceAsStream = this.getClass().getResourceAsStream(path);
-            try (final BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(resourceAsStream))) {
+            try (BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(resourceAsStream)))
+            {
                 pemReader = new PemReader(bufferedReader);
                 pemObject = pemReader.readPemObject();
                 pemReader.close();

@@ -14,12 +14,17 @@ import java.util.List;
 @Data
 public class UserSecurity implements UserDetails {
 
+    /**
+     * Логин. */
     private String login = SecurityConstants.DEFAULT_LOGIN;
-
+    /**
+     * Пароль. */
     private String password = SecurityConstants.DEFAULT_PASSWORD;
-
+    /**
+     * Флаг доступности пользователя. */
     private Boolean enabled = Boolean.TRUE;
-
+    /**
+     * Роли пользователя. */
     private List<Privilege> privileges = Collections.singletonList(new Privilege());
 
     @Override

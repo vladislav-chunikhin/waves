@@ -11,6 +11,7 @@ public interface FortuneService {
     /**
      * Отправка подписи в теле транзакции в тестовую ноду.
      * @param request Тело запроса с номером теста и txId.
+     * @param function Наименование функции.
      * @return Объект, содержащий информацию об отправке в ноду подписи. */
     WavesResponse sendData(SendDataToNodeRequest request, String function);
 

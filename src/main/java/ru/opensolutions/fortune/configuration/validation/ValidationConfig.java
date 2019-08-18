@@ -10,8 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.String.format;
-
 /**
  * Валидация настроек приложения. */
 @Configuration

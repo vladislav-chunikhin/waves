@@ -10,9 +10,17 @@ import java.util.Collection;
  * pojo объект для пользователя с параметрами авторизации. */
 public class JwtUser implements UserDetails {
 
+    /**
+     * Логин пользователя. */
     private String username;
+    /**
+     * Права пользователя. */
     private Collection<? extends GrantedAuthority> authorities;
 
+    /**
+     * @param username {@link JwtUser#username}.
+     * @param authorities {@link JwtUser#authorities}.
+     */
     public JwtUser(
             @NonNull final String username,
             @NonNull final  Collection<? extends GrantedAuthority> authorities)

@@ -12,8 +12,13 @@ import ru.opensolutions.fortune.model.constants.FortuneConstants;
 import ru.opensolutions.fortune.model.dto.TransactionParamsDto;
 import ru.opensolutions.fortune.service.crypto.CryptographyComponent;
 import ru.opensolutions.fortune.util.enums.FunctionType;
-import com.wavesplatform.wavesj.*;
+
+import com.wavesplatform.wavesj.Node;
+import com.wavesplatform.wavesj.PrivateKeyAccount;
+import com.wavesplatform.wavesj.ByteString;
+import com.wavesplatform.wavesj.Base64;
 import com.wavesplatform.wavesj.transactions.InvokeScriptTransaction;
+
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -53,7 +58,8 @@ public class FortuneServiceImpl extends AbstractTransactionLogger implements For
     @Override
     public WavesResponse sendData(
             @NonNull final SendDataToNodeRequest request,
-            @NonNull final String function) {
+            @NonNull final String function)
+    {
         final String methodName = "sendData";
         this.logStartMethod(methodName);
 
@@ -63,10 +69,9 @@ public class FortuneServiceImpl extends AbstractTransactionLogger implements For
         final String dApp = this.dAppAddressComponent.getDAppValueByFunctionType(functionType);
 
         this.log(
-                "NODE URI = {}" +
-                        "\nDAPP ADDRESS = {}" +
-                        "\nSEED = {}"
-                , nodeUri, dApp, seed);
+                "NODE URI = {}"
+                        + "\nDAPP ADDRESS = {}"
+                        + "\nSEED = {}", nodeUri, dApp, seed);
 
         final String testNumber = request.getTestNumber();
         final String txId = request.getTxId();
@@ -79,8 +84,7 @@ public class FortuneServiceImpl extends AbstractTransactionLogger implements For
         final ByteString signatureAsByteString = new ByteString(signatureBase58);
         final ByteString publicKeyAsByteString = new ByteString(publicKey.getEncoded());
 
-        final InvokeScriptTransaction tx = new InvokeScriptTransaction
-                (
+        final InvokeScriptTransaction tx = new InvokeScriptTransaction(
                         FortuneConstants.TEST_CHAIN_ID,
                         account,
                         dApp,

@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 public class WavesControllerAdvice extends AbstractLogger {
 
     /**
-     * Перехватывает все ошибки связанные с валидацией
+     * Перехватывает все ошибки связанные с валидацией.
      * @param ex исключения по валидации параметров.
      * @return {@link WavesResponse} общий ответ API. */
     @ExceptionHandler({
@@ -27,7 +27,7 @@ public class WavesControllerAdvice extends AbstractLogger {
             ValidationException.class
     })
     @ResponseStatus(BAD_REQUEST)
-    public WavesResponse handleValidationException (@NonNull final RuntimeException ex) {
+    public WavesResponse handleValidationException(@NonNull final RuntimeException ex) {
         this.error("handleValidationException = {}", ex.toString());
         return WavesAPI.negativeResponse(BAD_REQUEST.value(), ex.toString());
     }

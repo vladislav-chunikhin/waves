@@ -38,7 +38,8 @@ public final class JsonUtils {
      * @param isPretty флаг на красивость json.
      * @return json строка. */
     public static String getJsonFromObject(@NonNull final Object obj,
-                                           @NonNull final boolean isPretty) {
+                                           @NonNull final boolean isPretty)
+    {
         final ObjectMapper objectMapper = new ObjectMapper();
         try {
             final String json = objectMapper.writeValueAsString(obj);

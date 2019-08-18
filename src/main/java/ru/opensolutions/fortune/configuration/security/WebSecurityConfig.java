@@ -55,8 +55,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * Настройка для пароля. */
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * @param authUserDetailsService сервис для поиска пользователя по логину в системе.
+     * @param passwordEncoder настройка для пароля.
+     */
     @Autowired
-    public WebSecurityConfig(final AuthUserDetailsService authUserDetailsService, final PasswordEncoder passwordEncoder) {
+    public WebSecurityConfig(final AuthUserDetailsService authUserDetailsService,
+                             final PasswordEncoder passwordEncoder)
+    {
         super(true);
         this.authUserDetailsService = authUserDetailsService;
         this.passwordEncoder = passwordEncoder;

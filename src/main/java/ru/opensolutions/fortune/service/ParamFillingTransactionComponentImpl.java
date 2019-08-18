@@ -17,10 +17,12 @@ class ParamFillingTransactionComponentImpl implements ParamFillingTransactionCom
      * Оплата. */
     private static final Long PAYMENT_AMT = toWavelets(0.001);
 
+    @Override
     public void fillTxForCheckSign(
             @NonNull final InvokeScriptTransaction tx,
             @NonNull final TransactionParamsDto dto,
-            @NonNull final PrivateKeyAccount account) {
+            @NonNull final PrivateKeyAccount account)
+    {
         tx
                 .withArg(dto.getTestNumber())
                 .withArg(dto.getTxId())
@@ -30,22 +32,26 @@ class ParamFillingTransactionComponentImpl implements ParamFillingTransactionCom
                 .sign(account);
     }
 
+    @Override
     public void fillTxForWithdraw(
             @NonNull final InvokeScriptTransaction tx,
             @NonNull final TransactionParamsDto dto,
             @NonNull final PrivateKeyAccount account
-    ) {
+    )
+    {
         tx
                 .withArg(dto.getTxId())
                 .withArg(dto.getSignatureAsByteString())
                 .sign(account);
     }
 
+    @Override
     public void fillTxForBet(
             @NonNull final InvokeScriptTransaction tx,
             @NonNull final TransactionParamsDto dto,
             @NonNull final PrivateKeyAccount account
-    ) {
+    )
+    {
         tx
                 .withArg(dto.getBetValue())
                 .withPayment(PAYMENT_AMT, null)

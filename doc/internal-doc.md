@@ -1,0 +1,2 @@
+# Maven Тест
+- В проекте имеется plugin для проверки code style. Главный файл настроек по стилю написания кода хранится в src/main/resources/config.yml. Команда для запуска плагина: mvn site, после выполнения данного плагина результат лежит в target/site/checkstyle.html
